@@ -11,6 +11,7 @@
 /*#include <QPieSeries>
 #include <QtCharts>
 #include <QChartView>*/
+#include <QSqlQuery>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -22,6 +23,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->setCurrentIndex(0);
     ui->tabWidget->setCurrentIndex(0);
     ui->tab_client->setModel(C.afficher2("XYZ","XYZ","XYZ"));
+    ui->tableView->setModel(C.afficher2("XYZ","XYZ","XYZ"));
     ui->le_cin->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
 
     ui->le_prenom->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
@@ -67,17 +69,26 @@ void MainWindow::on_pb_ajouter_clicked()
     }
 
       else{
-       QMessageBox::information(nullptr, QObject::tr("database is open"),
+       /*QMessageBox::information(nullptr, QObject::tr("database is open"),
                        QObject::tr("cartefid ajoutée:\n"
-            "click ok to exit"),QMessageBox::Ok);
+            "click ok to exit"),QMessageBox::Ok);*/
 
-        E.ajouter();
+       test= E.ajouter();}
+   if(test==true){
+           QMessageBox::information(nullptr, QObject::tr("database is open"),
+                           QObject::tr("carte ajoutée:\n"
+                "click ok to exit"),QMessageBox::Ok);
+           ui->tab_cartefid->setModel(E.afficher());}
+        else{QMessageBox::information(nullptr, QObject::tr("database is open"),
+                                      QObject::tr(" impossible d'ajouter:\n"
+                           "click ok to exit"),QMessageBox::Ok);
+
    ui->tab_cartefid->setModel(E.afficher());
-
+ui->tab_cartefid_2->setModel(E.afficher());
 
 }
 ui->tab_cartefid->setModel(E.afficher());
-ui->tab_cartefid->setModel(E.afficher());
+ui->tab_cartefid_2->setModel(E.afficher());
 }
 
 
@@ -153,7 +164,8 @@ void MainWindow::on_ajouterclie_clicked()
         QMessageBox::information(nullptr, QObject::tr("database is open"),
                         QObject::tr("client ajoutée:\n"
              "click ok to exit"),QMessageBox::Ok);
-        ui->tab_client->setModel(C.afficher2("XYZ","XYZ","XYZ"));}
+        ui->tab_client->setModel(C.afficher2("XYZ","XYZ","XYZ"));
+      ui->tableView->setModel(C.afficher2("XYZ","XYZ","XYZ"));}
      else{QMessageBox::information(nullptr, QObject::tr("database is open"),
                                    QObject::tr("client existe deja:\n"
                         "click ok to exit"),QMessageBox::Ok);}
@@ -171,17 +183,18 @@ void MainWindow::on_supp_clicked()
 {Clientfid C;
 
     int cin = ui->c_supp->text().toInt();
-        bool test = C.supprimer(cin);
+      bool test= C.supprimer(cin);
         if (test)
         {
 
             ui->tab_client->setModel(C.afficher2("XYZ","XYZ","XYZ"));
+             ui->tableView->setModel(C.afficher2("XYZ","XYZ","XYZ"));
 
-            QMessageBox::information(nullptr, QObject::tr("Success"), QObject::tr("contrat Successfully Deleted!\n"), QMessageBox::Ok);
+            QMessageBox::information(nullptr, QObject::tr("Success"), QObject::tr("client Successfully Deleted!\n"), QMessageBox::Ok);
         }
         else
         {
-            QMessageBox::critical(nullptr, QObject::tr("Failed"), QObject::tr("Failed to delete contrat\n"
+            QMessageBox::critical(nullptr, QObject::tr("Failed"), QObject::tr("Failed to delete client\n"
                                                                               "Click cancel."),
                                   QMessageBox::Cancel);
         }
@@ -230,7 +243,8 @@ void MainWindow::on_modifierclient_clicked()
     QMessageBox::information(nullptr, QObject::tr("database is open"),
             QObject::tr("client modifier:\n"
  "click ok to exit"),QMessageBox::Ok);
-    ui->tab_client->setModel(C2.afficher2("XYZ","XYZ","XYZ"));}
+    ui->tab_client->setModel(C2.afficher2("XYZ","XYZ","XYZ"));
+    ui->tableView->setModel(C.afficher2("XYZ","XYZ","XYZ"));}
    else{QMessageBox::information(nullptr, QObject::tr("database is open"),
                                  QObject::tr("client nn:\n"
                       "click ok to exit"),QMessageBox::Ok);}
@@ -338,3 +352,45 @@ void MainWindow::on_pushButton_7_clicked()
     chartview->setParent(ui->horizontalFrame);
 
 }*/
+
+void MainWindow::on_pushButton_8_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(4);
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
+}
+
+
+void MainWindow::on_le_cin_supp_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+            query->prepare("SELECT * FROM cartefid  WHERE CIN  LIKE'"+arg1+"%' or POINT LIKE'"+arg1+"%' or ID_CARTE LIKE'"+arg1+"%' or DA LIKE'"+arg1+"%'  ");
+             query->exec();
+             if (query->next()) { }
+             else {
+                 QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                                 QObject::tr("NO MATCH FOUND !.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+                 ui->le_cin_supp->clear();}
+}
+
+
+void MainWindow::on_le_cin_modifier_textChanged(const QString &arg1)
+{
+
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+            query->prepare("SELECT * FROM cartefid  WHERE CIN  LIKE'"+arg1+"%' or POINT LIKE'"+arg1+"%' or ID_CARTE LIKE'"+arg1+"%' or DA LIKE'"+arg1+"%'  ");
+             query->exec();
+             if (query->next()) { }
+             else {
+                 QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                                 QObject::tr("NO MATCH FOUND !.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+                 ui->le_cin_modifier->clear();}
+}
+

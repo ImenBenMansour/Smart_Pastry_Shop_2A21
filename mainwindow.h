@@ -57,6 +57,18 @@ private slots:
 
     void on_pushButton_11_clicked();
 
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_c_supp_textChanged(const QString &arg1);
+
+    void on_le_cin_supp_textChanged(const QString &arg1);
+
+    void on_le_cin_modifier_textChanged(const QString &arg1);
+
+    void on_c_cin_modifier_textChanged(const QString &arg1);
+
 private:
 
     Cartefid E;
