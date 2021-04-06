@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>img/ajout.png</file>
+        <file>img/delete.png</file>
+        <file>img/login.png</file>
+        <file>img/modify.png</file>
+        <file>img/pdf.png</file>
+        <file>img/search.png</file>
+        <file>img/tri alph.jpg</file>
+        <file>img/bg.png</file>
+        <file>img/projet.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>img/projet.png</file>
+    </qresource>
+</RCC>
