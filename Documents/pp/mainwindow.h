@@ -57,6 +57,24 @@ private slots:
 
     void on_pdf_clicked();
 
+    void on_le_id_supp2_textChanged(const QString &arg1);
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_id_modii2_textChanged(const QString &arg1);
+
+    //void on_le_id_rec_textChanged(const QString &arg1);
+
+    void on_le_id_supp_textChanged(const QString &arg1);
+
+    void on_le_id_modi_textChanged(const QString &arg1);
+
 private:
     Ui::MainWindow *ui;
     reclamation R;

@@ -59,6 +59,7 @@ QSqlQueryModel* reclamation::afficher()
 
     return model;
 }
+
 bool reclamation::modifier(int id_rec,QString des_rec,QString mail_rec,QDate dat)
 {
 
@@ -85,3 +86,40 @@ if((test==1)&&(mail_rec[i]=="."))
     return true;
 }}
 return false;}
+void reclamation::exporter(QTableView *table)
+{
+
+    QString filters("CSV files (.csv);;All files (.*)");
+    QString defaultFilter("CSV files (*.csv)");
+    QString fileName = QFileDialog::getSaveFileName(0, "Save file", QCoreApplication::applicationDirPath(),
+                                                    filters, &defaultFilter);
+    QFile file(fileName);
+    QAbstractItemModel *model =  table->model();
+    if (file.open(QFile::WriteOnly | QFile::Truncate))
+    {
+        QTextStream data(&file);
+        QStringList strList;
+        for (int i = 0; i < model->columnCount(); i++)
+        {
+            if (model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString().length() > 0)
+                strList.append("\"" + model->headerData(i, Qt::Horizontal, Qt::DisplayRole).toString() + "\"");
+            else
+                strList.append("");
+        }
+        data << strList.join(";") << "\n";
+        for (int i = 0; i < model->rowCount(); i++)
+        {
+            strList.clear();
+            for (int j = 0; j < model->columnCount(); j++)
+            {
+
+                if (model->data(model->index(i, j)).toString().length() > 0)
+                    strList.append("\"" + model->data(model->index(i, j)).toString() + "\"");
+                else
+                    strList.append("");
+            }
+            data << strList.join(";") + "\n";
+        }
+        file.close();
+    }
+}

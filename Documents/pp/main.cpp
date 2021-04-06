@@ -3,8 +3,14 @@
 #include <QApplication>
 #include<QDebug>
 #include <QMessageBox>
+#include<QFile>
 int main(int argc, char *argv[])
 {QApplication a(argc, argv);
+    QFile styleSheetFile("C:/Users/lenovo/Documents/pp/Adaptic.qss");
+    styleSheetFile.open(QFile::ReadOnly);
+    QString styleSheet=QLatin1String(styleSheetFile.readAll());
+    a.setStyleSheet(styleSheet);
+
     connexion c;
     bool test=c.createconnexion();
      MainWindow w;
@@ -21,6 +27,9 @@ int main(int argc, char *argv[])
          QMessageBox::critical(nullptr, QObject::tr("database is not open"),QObject::tr("connexion failed\n" "click Cancel to exist"),
                                                 QMessageBox::Cancel);
          //qDebug() <<"erreur de connexion";
+
+
+
      w.show();
     return a.exec();
 }

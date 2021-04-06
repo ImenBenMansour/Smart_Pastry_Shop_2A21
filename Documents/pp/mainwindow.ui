@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Gestionaire de service a la clientele </string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QStackedWidget" name="stackedWidget">
@@ -19,12 +19,12 @@
      <rect>
       <x>10</x>
       <y>30</y>
-      <width>731</width>
+      <width>791</width>
       <height>371</height>
      </rect>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="page">
      <widget class="QPushButton" name="pushButton">
@@ -32,12 +32,15 @@
        <rect>
         <x>90</x>
         <y>40</y>
-        <width>75</width>
+        <width>111</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
        <string>Reclamations</string>
+      </property>
+      <property name="checkable">
+       <bool>false</bool>
       </property>
      </widget>
      <widget class="QPushButton" name="pushButton_2">
@@ -45,7 +48,7 @@
        <rect>
         <x>100</x>
         <y>90</y>
-        <width>75</width>
+        <width>101</width>
         <height>23</height>
        </rect>
       </property>
@@ -67,22 +70,60 @@
       </property>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_5">
+     <widget class="QTableView" name="tableView">
+      <property name="geometry">
+       <rect>
+        <x>0</x>
+        <y>0</y>
+        <width>711</width>
+        <height>251</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_4">
+      <property name="geometry">
+       <rect>
+        <x>90</x>
+        <y>320</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ajouter reclamation</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_5">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>320</y>
+        <width>111</width>
+        <height>41</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>retour</string>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="page_3">
      <widget class="QTabWidget" name="tabWidget">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>20</y>
-        <width>691</width>
+        <width>741</width>
         <height>301</height>
        </rect>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Ajouter une reclamation</string>
+        <string>Ajouter_rec</string>
        </attribute>
        <widget class="QGroupBox" name="groupBox">
         <property name="geometry">
@@ -231,14 +272,14 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Afficher une reclamation</string>
+        <string>Afficher_rec</string>
        </attribute>
        <widget class="QTableView" name="tab_rec">
         <property name="geometry">
          <rect>
-          <x>20</x>
-          <y>10</y>
-          <width>361</width>
+          <x>30</x>
+          <y>30</y>
+          <width>521</width>
           <height>192</height>
          </rect>
         </property>
@@ -246,8 +287,8 @@
        <widget class="QPushButton" name="pdf">
         <property name="geometry">
          <rect>
-          <x>430</x>
-          <y>40</y>
+          <x>550</x>
+          <y>10</y>
           <width>121</width>
           <height>31</height>
          </rect>
@@ -259,7 +300,7 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>Supprimer une reclamation</string>
+        <string>Supprimer_rec</string>
        </attribute>
        <widget class="QLabel" name="label_4">
         <property name="geometry">
@@ -300,7 +341,7 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>modifier reclamation</string>
+        <string>modifier_rec</string>
        </attribute>
        <widget class="QLabel" name="label_5">
         <property name="geometry">
@@ -423,13 +464,51 @@
       </widget>
      </widget>
     </widget>
+    <widget class="QWidget" name="page_6">
+     <widget class="QTableView" name="aa">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>20</y>
+        <width>631</width>
+        <height>192</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_6">
+      <property name="geometry">
+       <rect>
+        <x>64</x>
+        <y>230</y>
+        <width>111</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>ajouter promotion</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="pushButton_7">
+      <property name="geometry">
+       <rect>
+        <x>200</x>
+        <y>230</y>
+        <width>111</width>
+        <height>51</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>retour</string>
+      </property>
+     </widget>
+    </widget>
     <widget class="QWidget" name="page_4">
      <widget class="QTabWidget" name="tabWidget_2">
       <property name="geometry">
        <rect>
         <x>20</x>
         <y>10</y>
-        <width>621</width>
+        <width>731</width>
         <height>301</height>
        </rect>
       </property>
@@ -438,7 +517,7 @@
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
-        <string>Ajouter promotion</string>
+        <string>Ajouter_prom</string>
        </attribute>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="geometry">
@@ -574,7 +653,7 @@
       </widget>
       <widget class="QWidget" name="tab_6">
        <attribute name="title">
-        <string>Afficher promotion</string>
+        <string>Afficher_prom</string>
        </attribute>
        <widget class="QTableView" name="tab_prom">
         <property name="geometry">
@@ -641,7 +720,7 @@
       </widget>
       <widget class="QWidget" name="tab_7">
        <attribute name="title">
-        <string>Supprimer promotion</string>
+        <string>Supprimer_prom</string>
        </attribute>
        <widget class="QLabel" name="label_14">
         <property name="geometry">
@@ -682,7 +761,7 @@
       </widget>
       <widget class="QWidget" name="tab_8">
        <attribute name="title">
-        <string>Modifier promotion</string>
+        <string>Modifier_prom</string>
        </attribute>
        <widget class="QGroupBox" name="groupBox_3">
         <property name="geometry">
@@ -712,8 +791,8 @@
         <widget class="QLabel" name="label_16">
          <property name="geometry">
           <rect>
-           <x>20</x>
-           <y>150</y>
+           <x>10</x>
+           <y>140</y>
            <width>121</width>
            <height>16</height>
           </rect>
@@ -830,6 +909,12 @@
      <height>21</height>
     </rect>
    </property>
+   <widget class="QMenu" name="menuservice_client">
+    <property name="title">
+     <string>service client</string>
+    </property>
+   </widget>
+   <addaction name="menuservice_client"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>

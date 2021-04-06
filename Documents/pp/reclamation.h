@@ -3,7 +3,13 @@
 #include<QString>
 #include <QSqlQueryModel>
 #include <QDate>
-
+#include <QFile>
+#include <QFileDialog>
+#include <QApplication>
+#include <QPrinter>
+#include <QTextDocument>
+#include <QSqlQuery>
+#include <QTableView>
 
 class reclamation
 {
@@ -21,10 +27,11 @@ public:
     void setdat(QDate);
     bool ajouter();
     QSqlQueryModel* afficher();
+
      bool supprimer(int);
      bool modifier(int,QString,QString,QDate);
      bool testmail(QString);
-
+    void exporter(QTableView *table );
 
 private:
     int id_rec;
