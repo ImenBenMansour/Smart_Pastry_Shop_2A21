@@ -38,6 +38,10 @@ QSqlQueryModel * Crud_Recette::afficher_recette()
      return model;
 }
 
+
+
+
+
 bool Crud_Recette::supprimer_recette(int id)
 {
     QSqlQuery query;
@@ -57,3 +61,16 @@ bool Crud_Recette::modifier_recette() {
     return query.exec();
 }
 
+
+int Crud_Recette::total_recette() {
+    QSqlQuery query;
+    query.prepare("SELECT COUNT(*) FROM RECETTE");
+
+     query.exec();
+     int rows = 0;
+     while(query.next()) {
+         rows = query.value(0).toInt();
+     }
+
+     return rows ;
+}

@@ -43,8 +43,15 @@ public:
            bool ajouter_menu();
            bool modifier_menu();
            bool supprimer_menu(int);
+          bool recupere_menu(int);
+           QSqlQueryModel * trie_id();
+           QSqlQueryModel * trie_nom();
+           QSqlQueryModel * trie_categorie();
            QSqlQueryModel * afficher_menu();
-           void trie();
+           QSqlQueryModel * recherche_menu_selon_nom(QString);
+           QSqlQueryModel * recherche_menu_selon_categorie(QString);
+           QSqlQueryModel * recherche_menu_selon_id(int);
+            int total_menu();
 
 
 

@@ -25,6 +25,14 @@ private slots:
 
     void on_pb_modifier1_clicked();
 
+    void on_lineEdit1_textChanged(const QString &arg1);
+
+    void on_text_delete1_textChanged(const QString &arg1);
+
+    void on_pb_pdf_clicked();
+
+    void on_pushButton_4_clicked();
+
 private:
     Ui::gestion_recette *ui;
     Crud_Recette *crudRecette;

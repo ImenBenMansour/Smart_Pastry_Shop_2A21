@@ -28,6 +28,22 @@ private slots:
 
     void on_tabWidget_currentChanged(int index);
 
+    void on_check_box_id_clicked();
+
+    void on_pushButton_clicked();
+
+    void on_check_box_nom_clicked();
+
+    void on_check_box_categorie_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_lineEdit_textChanged(const QString &arg1);
+
+    void on_text_delete_textChanged(const QString &arg1);
+
+    void on_pushButton_3_clicked();
+
 private:
     Ui::gestion_menu *ui;
     Crud_Menu *crudMenu;

@@ -40,7 +40,10 @@ public:
     bool ajouter_recette();
     bool modifier_recette();
     bool supprimer_recette(int id);
-   QSqlQueryModel* afficher_recette();
+    QSqlQueryModel* afficher_recette();
+
+    //totale de recette (nombres=
+    int total_recette();
 
 
 

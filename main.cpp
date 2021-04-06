@@ -2,9 +2,16 @@
 #include "connexion.h"
 #include <QApplication>
 #include <QMessageBox>
+#include<QFile>
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QFile styleSheetFile("C:/Users/ASUS/Desktop/cuisine/Adaptic.qss");
+        styleSheetFile.open(QFile::ReadOnly);
+        QString styleSheet=QLatin1String(styleSheetFile.readAll());
+        a.setStyleSheet(styleSheet);
+
+
     MainWindow w;
 
     Connexion c ;

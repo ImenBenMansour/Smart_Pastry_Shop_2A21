@@ -1,4 +1,4 @@
-QT       += sql core gui
+QT       += sql core gui charts
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -15,7 +15,8 @@ SOURCES += \
     gestion_menu.cpp \
     gestion_recette.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    statistics.cpp
 
 HEADERS += \
     connexion.h \
@@ -23,12 +24,14 @@ HEADERS += \
     crud_recette.h \
     gestion_menu.h \
     gestion_recette.h \
-    mainwindow.h
+    mainwindow.h \
+    statistics.h
 
 FORMS += \
     gestion_menu.ui \
     gestion_recette.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    statistics.ui
 
 TRANSLATIONS += \
     cuisine_fr_BE.ts
