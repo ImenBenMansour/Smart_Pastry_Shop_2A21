@@ -1,5 +1,6 @@
 #include "poste.h"
-
+#include <iostream>
+using namespace std;
 poste::poste()
 {
 
@@ -269,4 +270,5 @@ QSqlQueryModel* poste::trie2()
                 query.prepare("select *from POSTEE ");
                 query.exec();
                 return query;
+
         }

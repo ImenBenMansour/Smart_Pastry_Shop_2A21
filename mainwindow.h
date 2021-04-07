@@ -63,11 +63,9 @@ private slots:
 
 
 
-    void on_tri_button_4_clicked();
 
-    void on_pushButton_5_clicked();
 
-    void on_exporter_button_clicked();
+
 
 private:
     Ui::MainWindow *ui;

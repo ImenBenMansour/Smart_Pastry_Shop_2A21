@@ -10,6 +10,10 @@
 #include <QPrintDialog>
 #include <QTextDocument>
 #include <QPixmap>
+#include <QSound>
+#include <iostream>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,37 +28,45 @@ MainWindow::MainWindow(QWidget *parent)
         int h = ui->label_pic->height();
         ui->label_pic->setPixmap(pix.scaled(w,h,Qt::KeepAspectRatio));
 
-        QPixmap pix1(":/new/prefix1/img/delete.png");
+        QPixmap pix1(":/new/prefix1/img/supp.png");
             int w1 = ui->label_pic1->width();
             int h1 = ui->label_pic1->height();
             ui->label_pic1->setPixmap(pix1.scaled(w1,h1,Qt::KeepAspectRatio));
 
+         QPixmap pix2(":/new/prefix1/img/stat.png");
+                int w2 = ui->label_pic2->width();
+                int h2 = ui->label_pic2->height();
+                ui->label_pic2->setPixmap(pix2.scaled(w2,h2,Qt::KeepAspectRatio));
+
 
 
     //controle de saisie employe
-        ui->id_line->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
+        ui->id_line->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
         ui->line_nom->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-        ui->line_datenaissance->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
+        //ui->line_datenaissance->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
+        ui->line_tel->setValidator(new QRegExpValidator(QRegExp("[0-9]{15}")));
       //  ui->line_tel->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
-        ui->line_adresse->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{20}")));
+        ui->line_adresse->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{30}")));
        // ui->line_mdp->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]")));
-        ui->line_id_poste->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
-    //controle de saisie poste
-        ui->ID_LINE->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
-      //  ui->line_nbheures->setValidator(new QRegExpValidator(QRegExp("[0-9]{4}")));
-       // ui->linejourconges->setValidator(new QRegExpValidator(QRegExp("[0-9]{4}")));
-        ui->line_salaire->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
-        ui->line_prime->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{20}")));
+        ui->line_id_poste->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        //controle de saisie poste
+        ui->line_idposte->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->line_nbheures->setValidator(new QRegExpValidator(QRegExp("[0-9]{4}")));
+        ui->linejourconges->setValidator(new QRegExpValidator(QRegExp("[0-9]{4}")));
+        ui->line_salaire->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->line_prime->setValidator(new QRegExpValidator(QRegExp("[0-9]{20}")));
 
 
         ui->ID_LINE->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{8}")));
         ui->PAS_LINE->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{20}")));
+
 
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+
 }
 
 void MainWindow::login()
@@ -69,7 +81,9 @@ void MainWindow::login()
 }
 
 void MainWindow::on_login_button_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+
     bool test=false;
 
         if(ui->ID_LINE->text().isEmpty())
@@ -105,7 +119,8 @@ void MainWindow::on_login_button_clicked()
 }
 
 void MainWindow::on_ajouter_button_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     QString idEmploye = ui->id_line->text();
     QString nom = ui->line_nom->text();
     QString DateNaiss = ui->line_datenaissance->text();
@@ -123,13 +138,17 @@ void MainWindow::on_ajouter_button_clicked()
         QMessageBox::information(nullptr, QObject::tr("ajout employe"),
                                  QObject::tr("employe ajouté :"), QMessageBox::Cancel);
     }
-
+   else {
+        QMessageBox::information(nullptr, QObject::tr("echec "),
+                                 QObject::tr("les champs sont invalides :"), QMessageBox::Cancel);
+    }
 }
 
 
 
 void MainWindow::on_SUPPRIMER8BUTTON_clicked()
-{
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     int idEmploye = ui->lineEdit_2->text().toInt();
      bool test = tempemploye.supprimer(idEmploye);
      if (test)
@@ -147,6 +166,8 @@ void MainWindow::on_pushButton_3_clicked()
 
 void MainWindow::on_pushButton_recherche_clicked()
 {
+    QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     {
         Employe p;
         QString text;
@@ -221,7 +242,8 @@ void MainWindow::on_tri_button_clicked()
 
 
 void MainWindow::on_modifier_button_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     if (ui->modifier_button->isChecked())
           {
               ui->modifier_button->setDisabled(true);
@@ -240,17 +262,20 @@ void MainWindow::on_modifier_button_clicked()
 }
 
 void MainWindow::on_pushButton_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
      ui->stackedWidget->setCurrentIndex(2);
 }
 
 void MainWindow::on_pushButton_2_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
      ui->stackedWidget->setCurrentIndex(3);
 }
 
 void MainWindow::on_ajouter_button_2_clicked()
-{
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     int id_poste = ui->line_idposte->text().toInt();
     int nbr_heurs = ui->line_nbheures->text().toInt();
     int jours_conges = ui->linejourconges->text().toInt();
@@ -266,6 +291,25 @@ void MainWindow::on_ajouter_button_2_clicked()
         QMessageBox::information(nullptr, QObject::tr("ajout poste"),
                                  QObject::tr("employe poste :"), QMessageBox::Cancel);
     }
+    else {
+         QMessageBox::information(nullptr, QObject::tr("echec "),
+                                  QObject::tr("les champs sont invalides :"), QMessageBox::Cancel);
+     }
+    QPieSeries *series = new QPieSeries();
+            QSqlQuery query;
+                    query=tempposte.stat();
+            while(query.next())
+            {
+                series->append(query.value(0).toString(),query.value(3).toInt());
+            }
+
+            QChart * chart=new  QChart();
+            chart->addSeries(series);
+            chart->setTitle("les statistiques des salaires");
+
+            QChartView * chartView=new QChartView(chart);
+            chartView ->setParent(ui->frame_4);
+            chartView->setFixedSize(ui->frame_4->size());
 }
 
 void MainWindow::on_pushButton_4_clicked()
@@ -274,7 +318,8 @@ void MainWindow::on_pushButton_4_clicked()
 }
 
 void MainWindow::on_modifier_button_2_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     if (ui->modifier_button_2->isChecked())
           {
               ui->modifier_button_2->setDisabled(true);
@@ -293,7 +338,8 @@ void MainWindow::on_modifier_button_2_clicked()
 }
 
 void MainWindow::on_pushButton_recherche_2_clicked()
-{
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     {
         poste p;
         QString text;
@@ -351,7 +397,8 @@ void MainWindow::on_pushButton_recherche_2_clicked()
 }
 
 void MainWindow::on_SUPPRIMER8BUTTON_2_clicked()
-{
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     int id_poste = ui->line_id_supp->text().toInt();
      bool test = tempposte.supprimer(id_poste);
      if (test)
@@ -360,6 +407,22 @@ void MainWindow::on_SUPPRIMER8BUTTON_2_clicked()
        QMessageBox::information(nullptr, QObject::tr(" suppression poste "),
                               QObject::tr("poste supprimé :"), QMessageBox::Cancel);
       }
+     QPieSeries *series = new QPieSeries();
+     QSqlQuery query;
+             query=tempposte.stat();
+     while(query.next())
+     {
+         series->append(query.value(0).toString(),query.value(3).toInt());
+     }
+
+     QChart * chart=new  QChart();
+     chart->addSeries(series);
+     chart->setTitle("les statistiques des salaires");
+
+     QChartView * chartView=new QChartView(chart);
+     chartView ->setParent(ui->frame_4);
+     chartView->setFixedSize(ui->frame_4->size());
+
 }
 
 void MainWindow::on_tri_button_2_clicked()
@@ -383,12 +446,14 @@ void MainWindow::on_tri_button_2_clicked()
 
 
 void MainWindow::on_retour_button_2_clicked()
-{
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     ui->stackedWidget->setCurrentIndex(1);
 }
 
 void MainWindow::on_retour_button_clicked()
-{
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
     ui->stackedWidget->setCurrentIndex(1);
 }
 
@@ -397,26 +462,7 @@ void MainWindow::on_retour_button_clicked()
 
 
 
-void MainWindow::on_pushButton_5_clicked()
-{
-     ui->stackedWidget->setCurrentIndex(4);
-}
 
-void MainWindow::on_exporter_button_clicked()
-{
-    QPieSeries *series = new QPieSeries();
-            QSqlQuery query;
-                    query=tempposte.stat();
-            while(query.next())
-            {
-                series->append(query.value(0).toString(),query.value(3).toInt());
-            }
 
-            QChart * chart=new  QChart();
-            chart->addSeries(series);
-            chart->setTitle("les statistiques des salaires");
 
-            QChartView * chartView=new QChartView(chart);
-            chartView ->setParent(ui->frame_4);
-            chartView->setFixedSize(ui->frame_4->size());
-}
+

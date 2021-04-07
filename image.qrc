@@ -7,10 +7,19 @@
         <file>img/pdf.png</file>
         <file>img/search.png</file>
         <file>img/tri alph.jpg</file>
-        <file>img/bg.png</file>
         <file>img/projet.png</file>
+        <file>img/emp.png</file>
+        <file>img/post.png</file>
+        <file>img/modifier.png</file>
+        <file>img/supp.png</file>
+        <file>img/admin.png</file>
+        <file>img/rech.png</file>
+        <file>img/tri.png</file>
+        <file>img/ajt.png</file>
+        <file>img/stat.png</file>
     </qresource>
     <qresource prefix="/">
         <file>img/projet.png</file>
+        <file>img/téléchargé.png</file>
     </qresource>
 </RCC>
