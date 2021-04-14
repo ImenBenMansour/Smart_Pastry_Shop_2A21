@@ -13,7 +13,7 @@ produits::produits()
 }
 
 
-produits::produits(QString id,QString nom,int prix,QString quantite)
+produits::produits(QString id,QString nom,int prix,int quantite)
 {
         this->id=id;
         this->nom=nom;
@@ -37,33 +37,46 @@ int produits::getQuantite(){return quantite;}
 
 bool produits::ajouter_produit()
 {
-QSqlQuery query;
+    QSqlQuery query;
 
-QString res= QString::number(prix);
-QString res1= QString::number(quantite);
-query.prepare("INSERT INTO PRODUITS (ID,NOM,PRIX,QUANTITE) "
+    QString res= QString::number(prix);
+    QString res1= QString::number(quantite);
+    query.prepare("INSERT INTO PRODUITS (ID,NOM,PRIX,QUANTITE) "
 
-                    "VALUES (:id,:nom,:prix,:quantite)");
-query.bindValue(":id", id);
-query.bindValue(":nom", nom);
-query.bindValue(":prix", res);
-query.bindValue(":quantite", res1);
+                        "VALUES (:id,:nom,:prix,:quantite)");
+    query.bindValue(":id", id);
+    query.bindValue(":nom", nom);
+    query.bindValue(":prix", res);
+    query.bindValue(":quantite", res1);
 
 return    query.exec();
 
 }
 
 QSqlQueryModel* produits::afficher_produit()
+ {
+   /*
 
-{
-    QSqlQueryModel* model= new QSqlQueryModel();
+   QSqlQueryModel* model= new QSqlQueryModel();
 model->setQuery("select * from PRODUITS");
 model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID"));
 model->setHeaderData(1, Qt::Horizontal, QObject::tr("NOM"));
 model->setHeaderData(2, Qt::Horizontal, QObject::tr("PRIX"));
 model->setHeaderData(3, Qt::Horizontal, QObject::tr("QUANTITE"));
 
-    return model;
+    return model; */
+
+    QSqlQueryModel* model=new QSqlQueryModel();
+
+
+             model->setQuery("SELECT ca.id,cl.nom, ca.prix, ca.quantite  FROM  PRODUITS ca ,FOURNISSEUR cl where ca.nom=:cl.id");
+             model->setQuery("select * from PRODUITS");
+              model->setHeaderData(0, Qt::Horizontal,QObject::tr("ID"));
+              model->setHeaderData(1, Qt::Horizontal,QObject::tr("id fournisseur"));
+              model->setHeaderData(2, Qt::Horizontal,QObject::tr("PRIX"));
+              model->setHeaderData(3, Qt::Horizontal,QObject::tr("QUANTITE"));
+
+        return model;
 }
 
 
@@ -131,18 +144,3 @@ QSqlQueryModel* produits::trier_prix()
 
         return model ;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

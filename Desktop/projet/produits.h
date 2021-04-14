@@ -1,7 +1,5 @@
 #ifndef PRODUITS_H
 #define PRODUITS_H
-#ifndef FOURNISSEURS_H
-#define FOURNISSEURS_H
 #include "connexion.h"
 #include <QString>
 #include <QSqlQuery>
@@ -29,9 +27,8 @@ QString getNom();
 int getPrix();
 int getQuantite();
 
-
-bool ajouter_produit();
 QSqlQueryModel* afficher_produit();
+bool ajouter_produit();
 bool supprimer_produit(QString);
 bool modifier_produit();
 

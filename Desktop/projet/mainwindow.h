@@ -32,7 +32,18 @@ private slots:
     void on_radioB_tri_nom_clicked();
     void on_radioB_tri_prix_clicked();
 
-    void on_pb_rechercher_clicked();
+
+
+
+    void on_pb_rechercher_id_clicked();
+
+    void on_pb_rechercher_nom_clicked();
+
+    void on_pb_rechercher_adresse_clicked();
+
+
+
+    void on_pb_imprimer_clicked();
 
 private:
     Ui::MainWindow *ui;
