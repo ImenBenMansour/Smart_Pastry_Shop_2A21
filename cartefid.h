@@ -21,7 +21,7 @@ public:
     QSqlQueryModel* afficher2();
     bool supprimer(int);
     bool modifier(int,QString,int,QDate);
-    //void statistique_med();
+    void statistique();
 private:
     int cin,id_carte;
     QString point;

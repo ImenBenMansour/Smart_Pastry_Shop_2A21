@@ -8,10 +8,12 @@
 #include "smtp.h"
 #include <QtNetwork>
 #include <QSslSocket>
-/*#include <QPieSeries>
-#include <QtCharts>
-#include <QChartView>*/
+#include<QObject>
 #include <QSqlQuery>
+#include<QtCharts>
+#include<QPieSeries>
+#include<QPieSlice>
+#include <QSound>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,8 +31,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->le_prenom->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
     ui->le_cin_supp->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
     ui->le_cin_modifier->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
-    ui->le_nom_modifier->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-    ui->le_prenom_modifier->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->le_nom_modifier->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->le_prenom_modifier->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
 
 
 
@@ -78,6 +80,7 @@ void MainWindow::on_pb_ajouter_clicked()
            QMessageBox::information(nullptr, QObject::tr("database is open"),
                            QObject::tr("carte ajoutée:\n"
                 "click ok to exit"),QMessageBox::Ok);
+
            ui->tab_cartefid->setModel(E.afficher());}
         else{QMessageBox::information(nullptr, QObject::tr("database is open"),
                                       QObject::tr(" impossible d'ajouter:\n"
@@ -253,8 +256,10 @@ void MainWindow::on_modifierclient_clicked()
 }
 
 void MainWindow::on_pushButton_4_clicked()
-{
+{ QSound bells("C:/Users/dhia/Documents/projet/bip.wave");
+    bells.play();
     ui->stackedWidget->setCurrentIndex(0);
+
 }
 
 
@@ -394,3 +399,101 @@ void MainWindow::on_le_cin_modifier_textChanged(const QString &arg1)
                  ui->le_cin_modifier->clear();}
 }
 
+
+
+
+void MainWindow::on_satta_clicked()
+{
+    QPieSeries *series = new QPieSeries();
+            QChart *chart = new QChart();
+
+        QSqlQuery query;
+        QPieSlice *slice;
+
+        query.prepare("SELECT ca.cin ,ca.point,ca.id_carte ,cl.nom , cl.prenom  FROM  cartefid ca ,clientfid cl where ca.cin=cl.cin ");
+        if(query.exec())
+        {int i=0;
+        while(query.next())
+        {
+
+           series->append(query.value(1).toString(), query.value(0).toInt());
+        slice = series->slices().at(i);
+           slice->setExploded();
+            slice->setLabelVisible();
+            slice->setPen(QPen(Qt::darkGreen, 2));
+
+            slice->setBrush(Qt::green);
+            i++;
+
+        }}
+
+        //![1]
+
+        //![2]
+          /*
+           slice1->setExploded();
+             slice1->setLabelVisible();
+             slice1->setPen(QPen(Qt::darkGreen, 2));
+             slice1->setBrush(Qt::green);*/
+        //![2]
+
+        //![3]
+            chart->addSeries(series);
+            chart->setTitle("Statisque ");
+
+
+
+        QChartView *chartView = new QChartView(chart);
+                chartView->setRenderHint(QPainter::Antialiasing);
+                             chartView->show();
+}
+
+
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    Clientfid c;
+
+        bool test=true;
+                if(test){
+
+                       { ui->tab_client->setModel(C.trier_cin());
+                        QMessageBox::information(nullptr, QObject::tr("trier equipement"),
+                                    QObject::tr(" client trier.\n"
+                                                "Voulez-vous enregistrer les modifications ?"),
+                                           QMessageBox::Save
+                                           | QMessageBox::Cancel,
+                                          QMessageBox::Save);
+        }
+
+                    }
+                    else
+                        QMessageBox::critical(nullptr, QObject::tr("trier  client"),
+                                    QObject::tr("Erreur !.\n"
+                                                "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+
+
+void MainWindow::on_tri_clicked()
+{ Clientfid c;
+
+    bool test=true;
+            if(test){
+
+                   { ui->tab_client->setModel(C.trier_nom());
+                    QMessageBox::information(nullptr, QObject::tr("trier equipement"),
+                                QObject::tr(" client trier.\n"
+                                            "Voulez-vous enregistrer les modifications ?"),
+                                       QMessageBox::Save
+                                       | QMessageBox::Cancel,
+                                      QMessageBox::Save);
+    }
+
+                }
+                else
+                    QMessageBox::critical(nullptr, QObject::tr("trier  client"),
+                                QObject::tr("Erreur !.\n"
+                                            "Click Cancel to exit."), QMessageBox::Cancel);
+
+}

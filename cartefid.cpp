@@ -2,6 +2,12 @@
 #include <QSqlQuery>
 #include <QtDebug>
 #include <QObject>
+#include<QtCharts>
+#include<QPieSeries>
+#include<QPieSlice>
+
+
+
 
 int Cartefid::getcin(){return cin;}
 QString Cartefid::getpoint(){return point;}
@@ -96,11 +102,52 @@ QSqlQueryModel* Cartefid::afficher2()
 bool Cartefid::modifier(int cin,QString point,int id_carte,QDate da){
 
     QSqlQuery query;
-    query.prepare("UPDATE cartefid set cin=:cin, nom=:nom, prenom=:prenom, da=:da WHERE cin=:cin");
+    query.prepare("UPDATE cartefid set cin=:cin, point=:point, id_carte=:id_carte, da=:da WHERE cin=:cin");
     query.bindValue(":cin",cin);
     query.bindValue(":point",point);
     query.bindValue(":id_carte",id_carte);
     query.bindValue(":da",da);
     return query.exec();
 }
+void Cartefid::statistique()
+{
+    QPieSeries *series = new QPieSeries();
+              QChart *chart = new QChart();
 
+ QSqlQuery query;
+     int cin=0;
+
+              series->append("Jane", 1);
+              series->append("Joe", 2);
+              series->append("Andy", 3);
+              series->append("Barbara", 4);
+              series->append("Axel", 5);
+          //![1]
+
+          //![2]
+              QPieSlice *slice = series->slices().at(1);
+              slice->setExploded();
+              slice->setLabelVisible();
+              slice->setPen(QPen(Qt::darkGreen, 2));
+              slice->setBrush(Qt::green);
+          //![2]
+
+          //![3]
+              chart->addSeries(series);
+              chart->setTitle("Simple piechart example");
+              chart->legend()->hide();
+          //![3]
+
+          //![4]
+
+          //![4]
+
+          //![5]
+
+
+
+/*}
+} */QChartView *chartView = new QChartView(chart);
+                  chartView->setRenderHint(QPainter::Antialiasing);
+                               chartView->show();
+}

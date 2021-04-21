@@ -285,6 +285,19 @@
          </rect>
         </property>
        </widget>
+       <widget class="QPushButton" name="satta">
+        <property name="geometry">
+         <rect>
+          <x>60</x>
+          <y>310</y>
+          <width>151</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>stat</string>
+        </property>
+       </widget>
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
@@ -397,7 +410,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>nom</string>
+         <string>point</string>
         </property>
        </widget>
        <widget class="QLabel" name="label_3">
@@ -410,7 +423,7 @@
          </rect>
         </property>
         <property name="text">
-         <string>prenom</string>
+         <string>id</string>
         </property>
        </widget>
        <widget class="QDateTimeEdit" name="dateTimeEdit_2">
@@ -434,7 +447,7 @@
           <x>29</x>
           <y>19</y>
           <width>531</width>
-          <height>351</height>
+          <height>71</height>
          </rect>
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout"/>
@@ -510,7 +523,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>3</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab_5">
        <attribute name="title">
@@ -789,6 +802,32 @@
         </property>
         <property name="text">
          <string>rech_prenom</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="pushButton_10">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>240</y>
+          <width>171</width>
+          <height>28</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>trier par cin</string>
+        </property>
+       </widget>
+       <widget class="QPushButton" name="tri">
+        <property name="geometry">
+         <rect>
+          <x>10</x>
+          <y>280</y>
+          <width>171</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <property name="text">
+         <string>trier par nom</string>
         </property>
        </widget>
       </widget>

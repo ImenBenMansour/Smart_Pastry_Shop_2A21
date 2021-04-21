@@ -69,6 +69,14 @@ private slots:
 
     void on_c_cin_modifier_textChanged(const QString &arg1);
 
+    void on_satta_clicked();
+
+    void on_sat_client_clicked();
+
+    void on_pushButton_10_clicked();
+
+    void on_tri_clicked();
+
 private:
 
     Cartefid E;

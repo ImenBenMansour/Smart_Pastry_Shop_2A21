@@ -30,7 +30,10 @@ QString affecter_cin(QString cin);
 QString affecter_nom(QString nom);
 QSqlQueryModel *afficher2(QString cin, QString nom,QString prenom);
      //QSqlQueryModel * rechercher(int);
+QSqlQueryModel* trier_cin();
+QSqlQueryModel* trier_nom();
      QSqlQueryModel * reset();
+
 private:
     int cin,num;
     QString nom, prenom,mail;

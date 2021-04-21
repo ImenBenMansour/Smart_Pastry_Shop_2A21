@@ -4,7 +4,9 @@
 #include <QtDebug>
 #include <QObject>
 #include <QMessageBox>
-
+#include<QtCharts>
+#include<QPieSeries>
+#include<QPieSlice>
 int Clientfid::getcin(){return cin;}
 QString Clientfid::getnom(){return nom;}
 QString Clientfid::getprenom(){return prenom;}
@@ -237,3 +239,33 @@ QString Clientfid::affecter_cin(QString cin)
     }
     return t;
 }
+QSqlQueryModel* Clientfid::trier_cin()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+        model->setQuery("SELECT * from CLIENTFID ORDER BY cin");
+
+        model->setHeaderData(0, Qt::Horizontal,QObject::tr("Cin"));
+        model->setHeaderData(1, Qt::Horizontal,QObject::tr("Nom"));
+       model->setHeaderData(2, Qt::Horizontal,QObject::tr("Prenom"));
+       model->setHeaderData(3, Qt::Horizontal,QObject::tr("Num"));
+       model->setHeaderData(4, Qt::Horizontal,QObject::tr("Mail"));
+
+
+        return model ;
+}
+
+QSqlQueryModel* Clientfid::trier_nom()
+{
+    QSqlQueryModel* model = new QSqlQueryModel();
+        model->setQuery("SELECT * from CLIENTFID ORDER BY nom");
+
+        model->setHeaderData(0, Qt::Horizontal,QObject::tr("Cin"));
+        model->setHeaderData(1, Qt::Horizontal,QObject::tr("Nom"));
+       model->setHeaderData(2, Qt::Horizontal,QObject::tr("Prenom"));
+       model->setHeaderData(3, Qt::Horizontal,QObject::tr("Num"));
+       model->setHeaderData(4, Qt::Horizontal,QObject::tr("Mail"));
+
+        return model ;
+}
+
+
