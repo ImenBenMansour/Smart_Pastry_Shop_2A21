@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include<QApplication>
 #include"promotion.h"
+#include "notification.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -75,9 +76,18 @@ private slots:
 
     void on_le_id_modi_textChanged(const QString &arg1);
 
+    void on_pb_Rid_clicked();
+
+    void on_pb_Rmail_clicked();
+
+    void on_pb_Rdesc_clicked();
+
+    void on_pushButton_8_clicked();
+
 private:
     Ui::MainWindow *ui;
     reclamation R;
     promotion P;
+    Notification N;
 };
 #endif // MAINWINDOW_H

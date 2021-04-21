@@ -33,6 +33,14 @@ public:
      bool testmail(QString);
     void exporter(QTableView *table );
 
+      QSqlQueryModel* afficher_id_rec(QString);
+      bool search_id_rec(QString);
+      QSqlQueryModel* afficher_mail_rec(QString);
+      bool search_mail_rec(QString);
+      QSqlQueryModel* afficher_des_rec(QString);
+      bool search_des_rec(QString);
+      QSqlQueryModel * reset();
+
 private:
     int id_rec;
     QString des_rec;

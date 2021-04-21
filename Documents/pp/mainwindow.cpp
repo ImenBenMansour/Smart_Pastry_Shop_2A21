@@ -14,6 +14,7 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QPainter>
+#include"notification.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -59,6 +60,7 @@ void MainWindow::on_pb_ajouter_clicked()
     reclamation R(ui->le_id_rec->text().toInt(),ui->le_des_rec->text(),ui->le_mail_rec->text(),ui->le_dat->date());
        int id_rec= ui->le_id_rec->text().toInt();
        QString des_rec= ui->le_des_rec->text();
+
     bool test=R.ajouter();
          if(id_rec==0||des_rec==""||R.testmail(R.getmail_rec())==false)
          {
@@ -77,6 +79,7 @@ void MainWindow::on_pb_ajouter_clicked()
          else{QMessageBox::information(nullptr, QObject::tr("database is open"),
                                        QObject::tr("reclamation existe deja:\n"
                             "click ok to exit"),QMessageBox::Ok);}
+          N.notification_ajoutReclamation();
 
              R.ajouter();
 
@@ -101,6 +104,7 @@ void MainWindow::on_pb_supprimer_clicked()
 {  reclamation R1;
     R1.setid_rec(ui->le_id_supp->text().toInt());
     int id_rec= ui->le_id_supp->text().toInt();
+     N.notification_supprimerReclamation();
     bool test1=R1.supprimer(R1.getid_rec());
 
 
@@ -139,6 +143,8 @@ void MainWindow::on_pb_modifier_clicked()
        R2.modifier(R2.getid_rec(),R2.getdes_rec(),R2.getmail_rec(),R2.getdat());
        int id_rec= ui->le_id_modi->text().toInt();
        QString des_rec= ui->le_des_modi->text();
+       N.notification_modifierReclamation();
+
        if(id_rec==0||des_rec==""||R2.testmail(R2.getmail_rec())==false)
             {
                QMessageBox::critical(nullptr, QObject::tr("vide"),
@@ -167,6 +173,7 @@ void MainWindow::on_pb2_ajouter_clicked()
     promotion P(ui->le_id2->text().toInt(),ui->le_nom->text(),ui->dat_cre->date(),ui->dat_exp->date());
            int id= ui->le_id2->text().toInt();
            QString nom= ui->le_nom->text();
+            N.notification_ajoutPromotion();
         bool test=P.ajouter2();
              if(id==0||nom=="")
              {
@@ -214,6 +221,7 @@ void MainWindow::on_pb2_supprimer_clicked()
   promotion P1;
         P1.setid(ui->le_id_supp2->text().toInt());
         int id= ui->le_id_supp2->text().toInt();
+         N.notification_supprimerPromotion();
         bool test2=P1.supprimer2(P1.getid());
 
 
@@ -265,6 +273,7 @@ void MainWindow::on_pushButton_3_clicked()
        P2.modifier2(P2.getid(),P2.getnom(),P2.getdat_cre(),P2.getdat_exp());
        int id= ui->id_modii2->text().toInt();
        QString nom= ui->nom_modi->text();
+        N.notification_modifierPromotion();
        if(id==0||nom=="")
             {
                QMessageBox::critical(nullptr, QObject::tr("vide"),
@@ -325,8 +334,7 @@ void MainWindow::on_radioButton_3_clicked()
 void MainWindow::on_pdf_clicked()
 {
 
-
-        QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
+ QString fileName = QFileDialog::getSaveFileName((QWidget* )0, "Export PDF", QString(), "*.pdf");
            if (QFileInfo(fileName).suffix().isEmpty()) { fileName.append("reclamation.pdf"); }
 
            QPrinter printer(QPrinter::PrinterResolution);
@@ -338,28 +346,36 @@ void MainWindow::on_pdf_clicked()
            QSqlQuery q;
            q.prepare("SELECT * FROM reclamation ");
            q.exec();
-           QString pdf="<br> <img src='C:/Users/lenovo/Downloads/150123410_1102641506814079_4892972152459660250_n (1).png' height='100' width='100'/> <h1  style='color:brown'> <i> <u>    LISTE DES RECALAMATIONS  </u> </i> <br></h1>\n <br> <table border>   <tr>  <th> ID_REC </th>      <th> DES_REC </th>    <th> MAIL_REC </th> <th> DATE  </th>  </tr>" ;
+           QString pdf="<br> <img src='C:/Users/lenovo/Documents/pp/dulcis logo.png' height='100' width='100'/> <h1  style='color:brown'> <i> <u>    LISTE DES RECALAMATIONS  </u> </i> <br></h1>\n <br> <table border>   <tr>  <th> ID_REC </th>      <th> DES_REC </th>    <th> MAIL_REC </th> <th> DATE  </th>  </tr>" ;
 
 
            while ( q.next()) {
+           pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+" <td>"+q.value(5).toString()+" <td>"+q.value(6).toString()+"       </td>"   ;
                int reponse = QMessageBox::question(this, "Génerer PDF", "<PDF Enregistré>...Vous Voulez Affichez Le PDF ?",
                                                    QMessageBox::Yes |  QMessageBox::No);
                    if (reponse == QMessageBox::Yes)
                    {
-                       QDesktopServices::openUrl(QUrl::fromLocalFile("file:///C:/Users/lenovo/Documents/pp/reclamation.pdf"));
+                       QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/lenovo/Documents/pp/rec2.pdf"));
 
-                       //pdf.end();
+                       pdf.end();
                    }
-                   else
+
+
+                 else
                    {
-                        pdf.end();
+                       pdf.end();
                    }
-                pdf= pdf+ " <br> <tr> <td>"+ q.value(0).toString()+"    </td>  <td>   " + q.value(1).toString() +"</td>  <td>" +q.value(2).toString() +"  "" " "</td>      <td>     "+q.value(3).toString()+"--------"+"</td>       <td>"+q.value(4).toString()+" <td>"+q.value(5).toString()+" <td>"+q.value(6).toString()+"       </td>"   ;
-           }
+
+
+
+
+                }
+
 
            doc.setHtml(pdf);
-           //doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
-           //doc.print(&printer);
+
+           doc.setPageSize(printer.pageRect().size()); // This is necessary if you want to hide the page number
+           doc.print(&printer);
 
 
 
@@ -497,4 +513,29 @@ void MainWindow::on_le_id_modi_textChanged(const QString &arg1)
                              QObject::tr("NO MATCH FOUND !.\n"
                                          "Click Cancel to exit."), QMessageBox::Cancel);
              ui->le_id_modi->clear();}
+}
+
+void MainWindow::on_pb_Rid_clicked()
+{
+    QString id_rec = ui->le_id_recR->text();
+        ui->tab_rec->setModel(R.afficher_id_rec(id_rec));
+}
+
+void MainWindow::on_pb_Rmail_clicked()
+{
+    QString mail_rec = ui->le_mail_recR->text();
+        ui->tab_rec->setModel(R.afficher_mail_rec(mail_rec));
+}
+
+void MainWindow::on_pb_Rdesc_clicked()
+{
+    QString des_rec = ui->la_descR->text();
+        ui->tab_rec->setModel(R.afficher_des_rec(des_rec));
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    reclamation R;
+
+        ui->tab_rec->setModel(R.reset());
 }

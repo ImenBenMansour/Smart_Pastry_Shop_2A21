@@ -123,3 +123,86 @@ void reclamation::exporter(QTableView *table)
         file.close();
     }
 }
+
+QSqlQueryModel* reclamation::afficher_id_rec(QString id_rec)
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM RECLAMATION WHERE ID_REC=:id_rec ");
+    query.bindValue(":id_rec", id_rec);
+    QSqlQueryModel* model= new QSqlQueryModel();
+    query.exec();
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_REC"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("DES_REC"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("MAIL_REC"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("DAT"));
+    return model;
+}
+
+bool reclamation::search_id_rec(QString id_rec)
+{
+    QSqlQuery query;
+    query.prepare("SELECT ID FROM RECLAMATION WHERE ID_REC=:id_rec");
+    query.bindValue(":id_rec", id_rec);
+    query.exec();
+
+    if(query.size()!=id_rec){return false;}
+    else return true;
+}
+
+QSqlQueryModel* reclamation::afficher_mail_rec(QString mail_rec)
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM RECLAMATION WHERE MAIL_REC=:mail_rec ");
+    query.bindValue(":mail_rec", mail_rec);
+    QSqlQueryModel* model= new QSqlQueryModel();
+    query.exec();
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_REC"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("DES_REC"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("MAIL_REC"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("DAT"));
+    return model;
+}
+
+bool reclamation::search_mail_rec(QString mail_rec)
+{
+    QSqlQuery query;
+    query.prepare("SELECT NOM FROM RECLAMATION WHERE MAIL_REC=:mail_rec");
+    query.bindValue(":mail_rec", mail_rec);
+    query.exec();
+
+    if(query.size()!=mail_rec){return false;}
+    else return true;
+}
+QSqlQueryModel* reclamation::afficher_des_rec(QString des_rec)
+{
+    QSqlQuery query;
+    query.prepare("SELECT * FROM RECLAMATION WHERE DES_REC=:des_rec ");
+    query.bindValue(":des_rec", des_rec);
+    QSqlQueryModel* model= new QSqlQueryModel();
+    query.exec();
+    model->setQuery(query);
+    model->setHeaderData(0, Qt::Horizontal, QObject::tr("ID_REC"));
+    model->setHeaderData(1, Qt::Horizontal, QObject::tr("DES_REC"));
+    model->setHeaderData(2, Qt::Horizontal, QObject::tr("MAIL_REC"));
+    model->setHeaderData(3, Qt::Horizontal, QObject::tr("DAT"));
+    return model;
+}
+QSqlQueryModel * reclamation::reset(){
+    QSqlQueryModel * model=new QSqlQueryModel();
+    model->setQuery("select * from RECLAMATION  ");
+
+    return  model;
+}
+
+bool reclamation::search_des_rec(QString des_rec)
+{
+    QSqlQuery query;
+    query.prepare("SELECT NOM FROM RECLAMATION WHERE DES_REC=:des_rec");
+    query.bindValue(":des_rec", des_rec);
+    query.exec();
+
+    if(query.size()!=des_rec){return false;}
+    else return true;
+}

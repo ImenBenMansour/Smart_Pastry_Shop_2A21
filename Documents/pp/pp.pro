@@ -14,12 +14,14 @@ SOURCES += \
     connexion.cpp \
     main.cpp \
     mainwindow.cpp \
+    notification.cpp \
     promotion.cpp \
     reclamation.cpp
 
 HEADERS += \
     connexion.h \
     mainwindow.h \
+    notification.h \
     promotion.h \
     reclamation.h
 
@@ -31,4 +33,5 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES +=
+RESOURCES += \
+    resource.qrc
