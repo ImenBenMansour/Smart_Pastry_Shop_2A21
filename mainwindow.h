@@ -5,6 +5,7 @@
 #include<QApplication>
 #include"promotion.h"
 #include"notification.h"
+#include "arduino.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -91,5 +92,6 @@ private:
     reclamation R;
     promotion P;
     Notification N;
+    arduino A;
 };
 #endif // MAINWINDOW_H
