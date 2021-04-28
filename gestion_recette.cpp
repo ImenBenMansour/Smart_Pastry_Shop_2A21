@@ -7,7 +7,11 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include "statistics.h"
-#include<QPixmap>
+#include <QPixmap>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
 gestion_recette::gestion_recette(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gestion_recette)
@@ -15,14 +19,14 @@ gestion_recette::gestion_recette(QWidget *parent) :
     ui->setupUi(this);
     this->setWindowTitle("GESTION DES RECETTES");
 
-    if(ui->le_nom1->text() == " ") {
+   /* if(ui->le_nom1->text() == " ") {
         QMessageBox::information(nullptr, QObject::tr("Verifier les champs"),
                                    QObject::tr("champ id recette ne doit etre pas vide"
                         "click ok to exit"),QMessageBox::Ok);
 
-    }
+    }*/
 
-    ui->le_id1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->le_id1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
         ui->le_nom1->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
         ui->la_categorie1->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
         ui->les_ingredients->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
@@ -31,7 +35,6 @@ gestion_recette::gestion_recette(QWidget *parent) :
         ui->lineEdit_33->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
         ui->lineEdit_44->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
          ui->text_delete1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
-
 
 }
 
@@ -130,7 +133,7 @@ void gestion_recette::on_text_delete1_textChanged(const QString &arg1)
 
 void gestion_recette::on_pb_pdf_clicked()
 {
-    QPdfWriter pdf("C:/Users/ASUS/Desktop/cuisine/cuisinePdf.pdf");
+    QPdfWriter pdf("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/Recettes.pdf");
 
                           QPainter painter(&pdf);
                          int i = 4000;
@@ -141,7 +144,7 @@ void gestion_recette::on_pb_pdf_clicked()
                               painter.setFont(QFont("Arial", 50));
                              // painter.drawText(1100,2000,afficheDC);
                               painter.drawRect(1500,200,7300,2600);
-                              painter.drawPixmap(QRect(100,700,600,600),QPixmap("C:/Users/ASUS/Desktop/cuisine/150123410_1102641506814079_4892972152459660250_n.png"));
+                              painter.drawPixmap(QRect(100,700,600,600),QPixmap("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/150123410_1102641506814079_4892972152459660250_n.png"));
                               painter.drawRect(0,3000,9600,500);
                               painter.setFont(QFont("Arial", 9));
                               painter.drawText(300,3300,"ID_RECETTE");
@@ -170,7 +173,7 @@ void gestion_recette::on_pb_pdf_clicked()
                               int reponse = QMessageBox::question(this, "Génération PDF", "<PDF Enregistré>...Voudrez vous Afficher Le PDF ?", QMessageBox::Yes |  QMessageBox::No);
                                   if (reponse == QMessageBox::Yes)
                                   {
-                                      QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/ASUS/Desktop/cuisine/cuisinePdf.pdf"));
+                                      QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/Recettes.pdf"));
 
                                       painter.end();
                                   }
@@ -184,4 +187,56 @@ void gestion_recette::on_pushButton_4_clicked()
 {
     statistics *g = new statistics(this);
     g->show();
+}
+
+
+void gestion_recette::on_pb_imprimer_recette_clicked()
+{
+    QString strStream;
+                QTextStream out(&strStream);
+
+
+
+                const int rowCount = ui->tableView1->model()->rowCount();
+                const int columnCount = ui->tableView1->model()->columnCount();
+
+                out <<  "<html>\n"
+                    "<head>\n"
+
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%60 les postes</title>\n").arg("poste")
+                    <<  "</head>\n"
+                    "<body bgcolor=#ffffff link=#5000A0>\n"
+                    "<table border=1 cellspacing=0 cellpadding=2>\n";
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (! ui->tableView1->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tableView1->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+
+                for (int row = 0; row < rowCount; row++) {
+                    out << "<tr>";
+                    for (int column = 0; column < columnCount; column++) {
+                        if (!ui->tableView1->isColumnHidden(column)) {
+                            QString data = ui->tableView1->model()->data(ui->tableView1->model()->index(row, column)).toString().simplified();
+                            out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                        }
+                    }
+                    out << "</tr>\n";
+                }
+                out <<  "</table>\n"
+                    "</body>\n"
+                    "</html>\n";
+
+                QTextDocument *document = new QTextDocument();
+                document->setHtml(strStream);
+
+                QPrinter printer;
+
+                QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                if (dialog->exec() == QDialog::Accepted) {
+                    document->print(&printer);
+                }
+
+                delete document;
 }

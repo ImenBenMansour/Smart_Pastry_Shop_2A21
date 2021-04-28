@@ -42,7 +42,7 @@ public:
     bool supprimer_recette(int id);
     QSqlQueryModel* afficher_recette();
 
-    //totale de recette (nombres=
+
     int total_recette();
 
 

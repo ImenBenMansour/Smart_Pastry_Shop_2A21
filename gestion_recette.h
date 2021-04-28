@@ -33,6 +33,8 @@ private slots:
 
     void on_pushButton_4_clicked();
 
+    void on_pb_imprimer_recette_clicked();
+
 private:
     Ui::gestion_recette *ui;
     Crud_Recette *crudRecette;

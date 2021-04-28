@@ -17,7 +17,7 @@ Crud_Menu::Crud_Menu(int idMenu,QString nomMenu,QString categorieMenu, double pr
 
 bool Crud_Menu::ajouter_menu( ) {
     QSqlQuery query; //QsqlQuery : Classe QsqlQuery qui admet une instance query qui contient des méthodes prédefinies comme bindValue/prepare
-    query.prepare("INSERT INTO MENU (idMenu,nomMenu,categorieMenu,prixMenu) VALUES(:id, :nom, :categorie, :prix)");//initiliastion requete Insert into
+    query.prepare("INSERT INTO MENU (idMenu,nomMenu,categorieMenu,prixMenu) VALUES(:id, :nom, :categorie, :prix)");//initilisation de la requête
     query.bindValue(":id",idMenu);
     query.bindValue(":nom",nomMenu);
     query.bindValue(":categorie",categorieMenu);

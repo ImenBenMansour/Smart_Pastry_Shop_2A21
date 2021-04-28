@@ -38,11 +38,11 @@ private slots:
 
     void on_pushButton_2_clicked();
 
-    void on_lineEdit_textChanged(const QString &arg1);
 
-    void on_text_delete_textChanged(const QString &arg1);
 
     void on_pushButton_3_clicked();
+
+    void on_pb_imprimer_menu_clicked();
 
 private:
     Ui::gestion_menu *ui;

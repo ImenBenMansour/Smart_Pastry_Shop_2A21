@@ -3,6 +3,11 @@
 #include "crud_menu.h"
 #include <QMessageBox>
 #include <QDebug>
+#include <QPixmap>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
 gestion_menu::gestion_menu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::gestion_menu)
@@ -15,7 +20,6 @@ gestion_menu::gestion_menu(QWidget *parent) :
         ui->lineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
         ui->text_delete->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
         ui->lineEdit_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
-
         ui->lineEdit_3->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
         ui->le_prix->setValidator(new QRegExpValidator(QRegExp("^[0-9]*(\.[0-9]+)?$")));
 }
@@ -37,12 +41,12 @@ gestion_menu::~gestion_menu()
     bool test = m.ajouter_menu();
 
     if(test) {
-        QMessageBox::information(nullptr, QObject::tr("database is open"),
+        QMessageBox::information(nullptr, QObject::tr("database is opened"),
                                    QObject::tr("Menu ajouté !\n"
                         "click ok to exit"),QMessageBox::Ok);
 
     }
-else{QMessageBox::information(nullptr, QObject::tr("database is open"),
+else{QMessageBox::information(nullptr, QObject::tr("database is opened"),
                               QObject::tr("erreur d'ajout !\n"
                    "click ok to exit"),QMessageBox::Ok);}
 
@@ -196,4 +200,56 @@ void gestion_menu::on_pushButton_3_clicked()
         int text_a_rechercher = ui->searchtxt_3->text().toInt();
 
         ui->tableView->setModel(crudMenu->recherche_menu_selon_id(text_a_rechercher));
+}
+
+
+void gestion_menu::on_pb_imprimer_menu_clicked()
+{
+    QString strStream;
+                QTextStream out(&strStream);
+
+
+
+                const int rowCount = ui->tableView->model()->rowCount();
+                const int columnCount = ui->tableView->model()->columnCount();
+
+                out <<  "<html>\n"
+                    "<head>\n"
+
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%60 les postes</title>\n").arg("poste")
+                    <<  "</head>\n"
+                    "<body bgcolor=#ffffff link=#5000A0>\n"
+                    "<table border=1 cellspacing=0 cellpadding=2>\n";
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (! ui->tableView->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tableView->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+
+                for (int row = 0; row < rowCount; row++) {
+                    out << "<tr>";
+                    for (int column = 0; column < columnCount; column++) {
+                        if (!ui->tableView->isColumnHidden(column)) {
+                            QString data = ui->tableView->model()->data(ui->tableView->model()->index(row, column)).toString().simplified();
+                            out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                        }
+                    }
+                    out << "</tr>\n";
+                }
+                out <<  "</table>\n"
+                    "</body>\n"
+                    "</html>\n";
+
+                QTextDocument *document = new QTextDocument();
+                document->setHtml(strStream);
+
+                QPrinter printer;
+
+                QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                if (dialog->exec() == QDialog::Accepted) {
+                    document->print(&printer);
+                }
+
+                delete document;
 }
