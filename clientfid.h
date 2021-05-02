@@ -41,5 +41,19 @@ private:
 
 
 };
+class projeth
+{
+public:
+       projeth() ;
+       projeth(QString,QString,QString) ;
+       QString get_nom();
+       QString get_datee();
+       QString get_fn();
+       QSqlQueryModel * afficherhis() ;
+       bool ajoutehis();
+       bool modifierhis() ;
+private:
 
+    QString nom,datee,fn ;
+};
 #endif // CLIENTFID_H

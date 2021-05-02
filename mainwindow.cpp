@@ -45,7 +45,70 @@
 #include <QDesktopServices>
 #include <QUrl>
 #include <QPixmap>
+#include"chat.h"
+//yassin
+#include "employe.h"
+#include "poste.h"
+//molka
+#include "crud_equipement.h"
+#include<QMessageBox>
+#include <QPainter>
+#include <QPdfWriter>
+#include <QDesktopServices>
+#include <QUrl>
+#include "statistics.h"
+#include <QPixmap>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
+#include "crud_menu.h"
+#include <QMessageBox>
+#include "crud_menu.h"
+#include <QMessageBox>
+#include <QDebug>
+#include <QPixmap>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
+#include "crud_recette.h"
+#include<QMessageBox>
+#include <QPainter>
+#include <QPdfWriter>
+#include <QDesktopServices>
+#include <QUrl>
 
+#include <QPixmap>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <QTextDocument>
+
+#include<QMediaPlayer>
+#include<QFileDialog>
+#include<QVideoWidget>
+#include<QLayout>
+#include<QVBoxLayout>
+#include<QBoxLayout>
+
+#include"video_play.h"
+#include<QDebug>
+//riadh
+#include "fournisseurs.h"
+#include "produits.h"
+#include <QMessageBox>
+#include <QString>
+#include <QDebug>
+#include<QDialog>
+#include <QFile>
+#include <QFileDialog>
+#include <QApplication>
+#include <QTextDocument>
+#include <QSqlQuery>
+#include <QPdfWriter>
+#include<QPainter>
+#include<QDesktopServices>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -106,6 +169,87 @@ MainWindow::MainWindow(QWidget *parent)
     ui->c_prenom_modifier->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
     ui->c_num_modifier->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
 
+//yassin
+    ui->id_line->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->line_nom->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->line_datenaissance->setValidator(new QRegExpValidator(QRegExp("[0-9/]{15}")));
+    ui->line_tel->setValidator(new QRegExpValidator(QRegExp("[0-9]{15}")));
+  //  ui->line_tel->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->line_adresse->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]{30}")));
+   // ui->line_mdp->setValidator(new QRegExpValidator(QRegExp("[A-Za-z0-9]")));
+    ui->line_id_poste->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    //controle de saisie poste
+    ui->line_idposte->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->line_nbheures->setValidator(new QRegExpValidator(QRegExp("[0-9]{4}")));
+    ui->linejourconges->setValidator(new QRegExpValidator(QRegExp("[0-9]{4}")));
+    ui->line_salaire->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->line_prime->setValidator(new QRegExpValidator(QRegExp("[0-9]{20}")));
+//molka
+    this->setWindowTitle("GESTION DES EQUIPEMENTS");
+        ui->le_ide->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->le_nome->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+        ui->le_quantitee->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->le_etate->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+        ui->ide_mod->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->nom_mod_2->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+        ui->quantite_mod_2->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+        ui->etate_mod->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+
+        this->setWindowTitle("GESTION DES MENUS");
+        ui->le_id->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+            ui->le_nom_3->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+            ui->la_categorie->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+            ui->lineEdit->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+            ui->text_delete->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+            ui->lineEdit_3->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+            ui->lineEdit_4->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+            ui->le_prix->setValidator(new QRegExpValidator(QRegExp("^[0-9]*(\.[0-9]+)?$")));
+
+            this->setWindowTitle("GESTION DES RECETTES");
+
+           /* if(ui->le_nom1->text() == " ") {
+                QMessageBox::information(nullptr, QObject::tr("Verifier les champs"),
+                                           QObject::tr("champ id recette ne doit etre pas vide"
+                                "click ok to exit"),QMessageBox::Ok);
+
+            }*/
+
+                ui->le_id1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+                ui->le_nom1->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                ui->la_categorie1->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                ui->les_ingredients->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                 ui->lineEdit1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+                ui->lineEdit_22->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                ui->lineEdit_33->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                ui->lineEdit_44->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                 ui->text_delete1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+
+
+                 mediaPlayer = new QMediaPlayer(this);
+                 videoWidget = new QVideoWidget(this);
+                 mediaPlayer->setVideoOutput(videoWidget);
+                // ui->verticalLayout->inserWidget(0,videoWidget);
+
+                 /*auto L=static_cast<QVBoxLayout *>(layout());
+                 L->insertWidget(0,videoWidget);*/
+
+                 connect(mediaPlayer,&QMediaPlayer::positionChanged,[&](qint64 pos){
+                     ui->avance->setValue(pos);
+                 });
+                connect(mediaPlayer,&QMediaPlayer::durationChanged,[&](qint64 dur){
+                        ui->avance->setMaximum(dur);
+                        mediaPlayer->setPosition(dur/2);
+
+                });
+                //riadh
+
+                ui->tabfournisseur->setModel(tmpfournisseur.afficher_fournisseur());
+                ui->tabproduit->setModel(tmpProd.afficher_produit());
+                ui->lineEdit_id_four->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+                ui->lineEdit_tel_four->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+                ui->lineEdit_nom_four->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+                ui->lineEdit_adresse_four->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+
 
 
 }
@@ -147,11 +291,11 @@ void MainWindow::on_pb_ajouter_clicked()
 
 }
 
-void MainWindow::on_pushButton_clicked()
+/*void MainWindow::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
 
-}
+}*/
 
 void MainWindow::on_pb_retour_clicked()
 {
@@ -259,10 +403,10 @@ void MainWindow::on_pb2_ajouter_clicked()
 
 }
 
-void MainWindow::on_pushButton_2_clicked()
+/*void MainWindow::on_pushButton_2_clicked()
 {
      ui->stackedWidget->setCurrentIndex(4);
-}
+}*/
 
 
 
@@ -405,7 +549,7 @@ void MainWindow::on_pdf_clicked()
            QSqlQuery q;
            q.prepare("SELECT * FROM reclamation ");
            q.exec();
-           QString pdf="<br> <img src='C:/Users/lenovo/Downloads/150123410_1102641506814079_4892972152459660250_n (1).png' height='100' width='100'/> <h1  style='color:brown'> <i> <u>    LISTE DES RECALAMATIONS  </u> </i> <br></h1>\n <br> <table border>   <tr>  <th> ID_REC </th>      <th> DES_REC </th>    <th> MAIL_REC </th> <th> DATE  </th>  </tr>" ;
+           QString pdf="<br> <img src='file:///C:/Users/dhia/Downloads/150123410_1102641506814079_4892972152459660250_n.png' height='100' width='100'/> <h1  style='color:brown'> <i> <u>    LISTE DES RECALAMATIONS  </u> </i> <br></h1>\n <br> <table border>   <tr>  <th> ID_REC </th>      <th> DES_REC </th>    <th> MAIL_REC </th> <th> DATE  </th>  </tr>" ;
 
 
            while ( q.next()) {
@@ -413,7 +557,7 @@ void MainWindow::on_pdf_clicked()
                                                    QMessageBox::Yes |  QMessageBox::No);
                    if (reponse == QMessageBox::Yes)
                    {
-                       QDesktopServices::openUrl(QUrl::fromLocalFile("file:///C:/Users/lenovo/Documents/pp/reclamation.pdf"));
+                       QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/dhia/Documents/pp - Copie/reclamation.pdf"));
 
                        //pdf.end();
                    }
@@ -714,6 +858,13 @@ void MainWindow::on_ajouterclie_clicked()
 
     {  bool test;
      Clientfid C(ui->c_cin->text().toInt(),ui->c_nom->text(),ui->c_prenom->text(),ui->c_num->text().toInt(),ui->c_mail->text());
+        srand (time(NULL));
+                 QDate d = QDate::currentDate() ;
+                  QString datee =d.toString("dd / MM / yyyy ") ;
+                  QString fn="ajouter" ;
+                 QString nom1 = ui->le_nom->text();
+               projeth pp(nom1,datee,fn) ;
+               bool test1=pp.ajoutehis() ;
      if(C.testmail(C.getmail())==false)
      {
         QMessageBox::critical(nullptr, QObject::tr("vide"),
@@ -751,6 +902,7 @@ void MainWindow::on_supp_clicked()
 
     int cin = ui->c_supp->text().toInt();
       bool test= C.supprimer(cin);
+
         if (test)
         {
 
@@ -1052,24 +1204,6 @@ ui->stackedWidget->setCurrentIndex(1);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void MainWindow::on_pushButton_19_clicked()
 {
     QString username= ui->username->text();
@@ -1090,9 +1224,29 @@ void MainWindow::on_pushButton_19_clicked()
     }
     else if(password=="0000"&&username=="malek")
     {
-        QMessageBox::information(nullptr, QObject::tr("nourhene"),
+        QMessageBox::information(nullptr, QObject::tr("malek"),
                                QObject::tr("Bienvenue"), QMessageBox::Cancel);
        ui->stackedWidget->setCurrentIndex(11);
+    }
+    else if(password=="0000"&&username=="yassin")
+    {
+        QMessageBox::information(nullptr, QObject::tr("yassine"),
+                               QObject::tr("Bienvenue"), QMessageBox::Cancel);
+       ui->stackedWidget->setCurrentIndex(14);
+    }
+
+    else if(password=="0000"&&username=="molka")
+    {
+        QMessageBox::information(nullptr, QObject::tr("molka"),
+                               QObject::tr("Bienvenue"), QMessageBox::Cancel);
+       ui->stackedWidget->setCurrentIndex(17);
+
+    }
+    else if(password=="0000"&&username=="riadh")
+    {
+        QMessageBox::information(nullptr, QObject::tr("riadh"),
+                               QObject::tr("Bienvenue"), QMessageBox::Cancel);
+       ui->stackedWidget->setCurrentIndex(22);
     }
     else{
         QMessageBox::critical(nullptr, QObject::tr("Probleme"),
@@ -1372,7 +1526,7 @@ void MainWindow::on_radioButton_6_clicked()
     ui->tab_c->setModel( CO.trier_qt());
 }
 
-void MainWindow::on_id_r3_textChanged(const QString &arg1)
+/*void MainWindow::on_id_r3_textChanged(const QString &arg1)
 {
     QSqlQueryModel *model= new QSqlQueryModel();
             QSqlQuery   *query= new QSqlQuery();
@@ -1427,7 +1581,7 @@ void MainWindow::on_code3_textChanged(const QString &arg1)
                                  QObject::tr("NO MATCH FOUND !.\n"
                                              "Click Cancel to exit."), QMessageBox::Cancel);
                  ui->code3->clear();}
-}
+}*/
 
 void MainWindow::on_rechercher_code_clicked()
 {
@@ -1502,7 +1656,7 @@ void MainWindow::on_rechercher_qt_clicked()
 
 void MainWindow::on_pb_pdf_clicked()
 {
-    QPdfWriter pdf("C:/Users/User/Desktop/pp/pp/Pdfreservation.pdf");
+    QPdfWriter pdf("C:/Users/dhia/Documents/pp - Copie/Pdfreservation.pdf");
                           QPainter painter(&pdf);
                          int i = 4000;
                               painter.setPen(Qt::red);
@@ -1553,4 +1707,1522 @@ void MainWindow::on_pb_pdf_clicked()
 
 
 
+
+
+
+
+void MainWindow::on_historique_clicked()
+{
+    ui->tabhis->setModel(tmph.afficherhis()) ;
+            ui->tabhis->setModel(tmph.afficherhis());//refresh
+}
+
+void MainWindow::on_chat_clicked()
+{
+
+    chat chat_window(this);
+    chat_window.setModal(true);
+    chat_window.show();
+    chat_window.exec();
+}
+
+
+
+//yassin
+
+void MainWindow::on_ajouter_button_clicked()
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    QString idEmploye = ui->id_line->text();
+    QString nom = ui->line_nom->text();
+    QString DateNaiss = ui->line_datenaissance->text();
+    int NumTel = ui->line_tel->text().toInt();
+    QString Adress = ui->line_mdp->text();
+    QString Mdp = ui->line_id_poste->text();
+    int id_poste = ui->line_id_poste->text().toInt();
+
+    Employe E(idEmploye,nom,DateNaiss,NumTel,Adress,Mdp,id_poste);
+    bool test =E.ajouter();
+    if (test)
+
+    {
+        ui->tableemploye->setModel(tempemploye.afficher());
+        QMessageBox::information(nullptr, QObject::tr("ajout employe"),
+                                 QObject::tr("employe ajouté :"), QMessageBox::Cancel);
+    }
+   else {
+        QMessageBox::information(nullptr, QObject::tr("echec "),
+                                 QObject::tr("les champs sont invalides :"), QMessageBox::Cancel);
+    }
+}
+
+
+
+void MainWindow::on_SUPPRIMER8BUTTON_clicked()
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    int idEmploye = ui->lineEdit_2->text().toInt();
+     bool test = tempemploye.supprimer(idEmploye);
+     if (test)
+      {
+         ui->tableemploye->setModel(tempemploye.afficher());
+       QMessageBox::information(nullptr, QObject::tr(" suppression employe "),
+                              QObject::tr("employe supprimé :"), QMessageBox::Cancel);
+      }
+}
+
+/*void MainWindow::on_pushButton_3_clicked()
+{
+    close();
+}*/
+
+void MainWindow::on_pushButton_recherche_clicked()
+{
+    QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    {
+        Employe p;
+        QString text;
+
+        if (ui->radioButton_ID->isChecked()==true)
+       {
+       text=ui->lineEdit_rechercher->text();
+         if(text == "")
+         {
+             ui->tableemploye->setModel(p.afficher());
+         }
+
+         else
+         {
+             ui->tableemploye->setModel(p.chercher_emp_id(text));
+         }
+        }
+
+
+       if(ui->radioButton_nom->isChecked()==true)
+        {
+            text=ui->lineEdit_rechercher->text();
+                 if(text == "")
+
+                 {
+                     ui->tableemploye->setModel(p.afficher());
+
+                 }
+
+                 else
+
+                 {
+                     ui->tableemploye->setModel(p.chercher_emp_nom(text));
+                 }
+
+        }
+
+         else if     (ui->radioButton_mdp->isChecked()==true)
+         {
+
+             text=ui->lineEdit_rechercher->text();
+                  if(text == "")
+
+                  {
+                      ui->tableemploye->setModel(p.afficher());
+                  }
+
+                  else
+
+                  {
+                      ui->tableemploye->setModel(p.chercher_emp_mdp(text));
+                  }
+         }
+    }
+}
+
+void MainWindow::on_tri_button_clicked()
+{
+    Employe p;
+           /*QString critere=ui->cb_historique->currentText();*/
+               QString mode;
+               // if (ui->rb_asc_historique->isChecked()==true)
+           {
+                    ui->tableemploye->setModel(p.trie());
+
+
+           }
+               /* else if(ui->rb_desc_historique->isChecked()==true)
+
+                    ui->tableemploye->setModel(p.trie2());*/
+    }
+
+
+void MainWindow::on_modifier_button_clicked()
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    if (ui->modifier_button->isChecked())
+          {
+              ui->modifier_button->setDisabled(true);
+              ui->modifier_button->setText("Modifiable");
+              QSqlTableModel *tableModel= new QSqlTableModel();
+              tableModel->setTable("EMPLOYE");
+              tableModel->select();
+              ui->tableemploye->setModel(tableModel);
+          }
+          else
+          {
+              ui->modifier_button->setText("Modifier");
+              ui->tableemploye->setModel(tempemploye.afficher());
+
+          }
+}
+
+/*void MainWindow::on_pushButton_clicked()
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+     ui->stackedWidget->setCurrentIndex(2);
+}*/
+
+/*void MainWindow::on_pushButton_2_clicked()
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+     ui->stackedWidget->setCurrentIndex(3);
+}*/
+
+void MainWindow::on_ajouter_button_2_clicked()
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    int id_poste = ui->line_idposte->text().toInt();
+    int nbr_heurs = ui->line_nbheures->text().toInt();
+    int jours_conges = ui->linejourconges->text().toInt();
+    QString salaire = ui->line_salaire->text();
+    QString prime = ui->line_prime->text();
+
+    poste p(id_poste,nbr_heurs,jours_conges,salaire,prime);
+    bool test =p.ajouter();
+    if (test)
+
+    {
+        ui->tablepostee->setModel(tempposte.afficher());
+        QMessageBox::information(nullptr, QObject::tr("ajout poste"),
+                                 QObject::tr("employe poste :"), QMessageBox::Cancel);
+    }
+    else {
+         QMessageBox::information(nullptr, QObject::tr("echec "),
+                                  QObject::tr("les champs sont invalides :"), QMessageBox::Cancel);
+     }
+    QPieSeries *series = new QPieSeries();
+            QSqlQuery query;
+                    query=tempposte.stat();
+            while(query.next())
+            {
+                series->append(query.value(0).toString(),query.value(3).toInt());
+            }
+
+            QChart * chart=new  QChart();
+            chart->addSeries(series);
+            chart->setTitle("les statistiques des salaires");
+
+            QChartView * chartView=new QChartView(chart);
+            chartView ->setParent(ui->frame_4);
+            chartView->setFixedSize(ui->frame_4->size());
+}
+
+/*void MainWindow::on_pushButton_4_clicked()
+{
+    close();
+}*/
+
+void MainWindow::on_modifier_button_2_clicked()
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    if (ui->modifier_button_2->isChecked())
+          {
+              ui->modifier_button_2->setDisabled(true);
+              ui->modifier_button_2->setText("Modifiable");
+              QSqlTableModel *tableModel= new QSqlTableModel();
+              tableModel->setTable("POSTEE");
+              tableModel->select();
+              ui->tablepostee->setModel(tableModel);
+          }
+          else
+          {
+              ui->modifier_button_2->setText("Modifier");
+              ui->tablepostee->setModel(tempposte.afficher());
+
+          }
+}
+
+void MainWindow::on_pushButton_recherche_2_clicked()
+{   QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    {
+        poste p;
+        QString text;
+
+        if (ui->radioButton_ID_2->isChecked()==true)
+       {
+       text=ui->lineEdit_rechercher_2->text();
+         if(text == "")
+         {
+             ui->tablepostee->setModel(p.afficher());
+         }
+
+         else
+         {
+             ui->tablepostee->setModel(p.chercher_post_id(text));
+         }
+        }
+
+
+       if(ui->radioButton_nom_2->isChecked()==true)
+        {
+            text=ui->lineEdit_rechercher_2->text();
+                 if(text == "")
+
+                 {
+                     ui->tablepostee->setModel(p.afficher());
+
+                 }
+
+                 else
+
+                 {
+                     ui->tablepostee->setModel(p.chercher_post_slr(text));
+                 }
+
+        }
+
+         else if     (ui->radioButton_mdp_2->isChecked()==true)
+         {
+
+             text=ui->lineEdit_rechercher_2->text();
+                  if(text == "")
+
+                  {
+                      ui->tablepostee->setModel(p.afficher());
+                  }
+
+                  else
+
+                  {
+                      ui->tablepostee->setModel(p.chercher_post_nbrh(text));
+                  }
+         }
+    }
+}
+
+void MainWindow::on_SUPPRIMER8BUTTON_2_clicked()
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    int id_poste = ui->line_id_supp->text().toInt();
+     bool test = tempposte.supprimer(id_poste);
+     if (test)
+      {
+         ui->tablepostee->setModel(tempposte.afficher());
+       QMessageBox::information(nullptr, QObject::tr(" suppression poste "),
+                              QObject::tr("poste supprimé :"), QMessageBox::Cancel);
+      }
+     QPieSeries *series = new QPieSeries();
+     QSqlQuery query;
+             query=tempposte.stat();
+     while(query.next())
+     {
+         series->append(query.value(0).toString(),query.value(3).toInt());
+     }
+
+     QChart * chart=new  QChart();
+     chart->addSeries(series);
+     chart->setTitle("les statistiques des salaires");
+
+     QChartView * chartView=new QChartView(chart);
+     chartView ->setParent(ui->frame_4);
+     chartView->setFixedSize(ui->frame_4->size());
+
+}
+
+void MainWindow::on_tri_button_2_clicked()
+{
+    poste g;
+           /*QString critere=ui->cb_historique->currentText();*/
+               QString mode;
+                if (ui->radioButto_h_asc->isChecked()==true)
+           {
+                    ui->tablepostee->setModel(g.trie());
+
+
+           }
+                else if(ui->radioButton_des->isChecked()==true)
+
+                    ui->tablepostee->setModel(g.trie2());
+
+}
+
+
+
+
+void MainWindow::on_retour_button_2_clicked()
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+void MainWindow::on_retour_button_clicked()
+{  QSound bells("C:/Users/admin/Downloads/pro (2).wav");
+    bells.play();
+    ui->stackedWidget->setCurrentIndex(14);
+}
+
+
+
+void MainWindow::on_pushButton_23_clicked()
+{
+    close();
+}
+
+void MainWindow::on_pushButton_24_clicked()
+{
+    close();
+}
+
+void MainWindow::on_employebutt_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(15);
+}
+
+void MainWindow::on_postebouton_clicked()
+{ui->stackedWidget->setCurrentIndex(16);
+
+}
+//.......molka..........
+
+void MainWindow::on_ajout_eq_clicked()
+{
+    crud_equipement E(ui->le_ide->text().toInt(),ui->le_nome->text(),ui->le_quantitee->text().toInt(),ui->le_etate->text());
+       int ide= ui->le_ide->text().toInt();
+       QString nome= ui->le_nome->text();
+    bool test=E.ajoutere();
+         if(ide==0||nome=="")
+         {
+            QMessageBox::critical(nullptr, QObject::tr("vide"),
+                                             QObject::tr("Veuillez saisir tous les champs correctement !\n"), QMessageBox::Cancel);
+
+         }
+
+           else if(test==true){
+            QMessageBox::information(nullptr, QObject::tr("database is opened"),
+                            QObject::tr("Equipement ajouté !\n"
+                 "click ok to exit"),QMessageBox::Ok);
+           /* ui->tab_equipement->setModel(E.affichere());*/}
+         else{QMessageBox::information(nullptr, QObject::tr("database is opened"),
+                                       QObject::tr("Erreur d'ajout !\n"
+                            "click ok to exit"),QMessageBox::Ok);}
+        // N.notification_ajoutEquipement();
+
+             E.ajoutere();
+
+}
+
+void MainWindow::on_tabWidget_7_currentChanged(int index)
+{
+       ui->tab_equipement->setModel(crudEquipement->affichere());
+}
+
+void MainWindow::on_pb_modifierequipement_clicked()
+{
+
+    crud_equipement E2;
+    E2.setide(ui->ide_mod->text().toInt());
+        E2.setnome(ui->nom_mod_2->text());
+        E2.setquantitee(ui->quantite_mod_2->text().toInt());
+        E2.setetate(ui->etate_mod->text());
+
+       E2.modifiere(E2.getide(),E2.getnome(),E2.getquantitee(),E2.getetate());
+       int ide= ui->ide_mod->text().toInt();
+       QString nome= ui->nom_mod_2->text();
+      // N.notification_modifierEquipement();
+       if(ide==0||nome=="")
+            {
+               QMessageBox::critical(nullptr, QObject::tr("vide"),
+                                                QObject::tr("Veuillez saisir tous les champs correctement !\n"), QMessageBox::Cancel);
+
+            }
+
+       else {
+           QMessageBox::information(nullptr, QObject::tr("database is opened"),
+                   QObject::tr("Equipement modifié !\n"
+        "click ok to exit"),QMessageBox::Ok);
+          // ui->tab_equipement->setModel(E.affichere());
+
+
+}
+}
+
+void MainWindow::on_pb_suppeq_clicked()
+{
+
+    crud_equipement E1;
+        E1.setide(ui->id_suppr->text().toInt());
+        int ide= ui->id_suppr->text().toInt();
+       // N.notification_supprimerEquipement();
+        bool test1=E1.supprimere(E1.getide());
+
+
+
+       if(ide==0)
+        {
+           QMessageBox::information(nullptr, QObject::tr("vide"),
+                                            QObject::tr("Veuillez saisir tous les champs correctement !\n"), QMessageBox::Cancel);
+
+        }
+
+
+
+        else if(test1==true)
+           {QMessageBox::information(nullptr,QObject::tr("database is opened"),
+                                     QObject::tr("Equipement supprimé !\n"
+             "click ok to exit"),QMessageBox::Ok);
+        // ui->tab_equipement->setModel(E.affichere());
+        }
+           else
+        {QMessageBox::critical(nullptr,QObject::tr("database is opened"),
+                                  QObject::tr("Erreur de suppression !\n"
+               "click ok to exit"),QMessageBox::Ok);}
+      // E.supprimere(E.getide());
+}
+
+void MainWindow::on_pdf_eq_clicked()
+{
+    QPdfWriter pdf("C:/Users/dhia/Documents/pp - Copie/Equipements.pdf");
+
+                          QPainter painter(&pdf);
+                         int i = 4000;
+                              painter.setPen(Qt::red);
+                              painter.setFont(QFont("Arial", 30));
+                              painter.drawText(2300,1200,"Liste Des Equipements");
+                              painter.setPen(Qt::black);
+                              painter.setFont(QFont("Arial", 50));
+                             // painter.drawText(1100,2000,afficheDC);
+                              painter.drawRect(1500,200,7300,2600);
+                              painter.drawPixmap(QRect(100,700,600,600),QPixmap("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/150123410_1102641506814079_4892972152459660250_n.png"));
+                              painter.drawRect(0,3000,9600,500);
+                              painter.setFont(QFont("Arial", 9));
+                              painter.drawText(300,3300,"ID_EQUIPEMENT");
+                              painter.drawText(2300,3300,"NOM_EQUIPEMENT");
+                              painter.drawText(4300,3300,"QUANTITE_EQUIPEMENT");
+                              painter.drawText(6300,3300,"ETAT_EQUIPEMENT");
+
+
+
+
+                              QSqlQuery query;
+                              query.prepare("select * from EQUIPEMENT");
+                              query.exec();
+                              while (query.next())
+                              {
+                                  painter.drawText(300,i,query.value(0).toString());
+                                  painter.drawText(2300,i,query.value(1).toString());
+                                  painter.drawText(4300,i,query.value(2).toString());
+                                  painter.drawText(6300,i,query.value(3).toString());
+
+
+
+
+                                 i = i +500;
+                              }
+                              int reponse = QMessageBox::question(this, "Génération PDF", "<PDF Enregistré>...Voudrez vous Afficher Le PDF ?", QMessageBox::Yes |  QMessageBox::No);
+                                  if (reponse == QMessageBox::Yes)
+                                  {
+                                      QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/Equipements.pdf"));
+
+                                      painter.end();
+                                  }
+                                  if (reponse == QMessageBox::No)
+                                  {
+                                       painter.end();
+                                  }
+}
+
+void MainWindow::on_pb_imprimer_clicked()
+{
+    QString strStream;
+                QTextStream out(&strStream);
+
+
+
+                const int rowCount = ui->tab_equipement->model()->rowCount();
+                const int columnCount = ui->tab_equipement->model()->columnCount();
+
+                out <<  "<html>\n"
+                    "<head>\n"
+
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%60 les postes</title>\n").arg("poste")
+                    <<  "</head>\n"
+                    "<body bgcolor=#ffffff link=#5000A0>\n"
+                    "<table border=1 cellspacing=0 cellpadding=2>\n";
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (! ui->tab_equipement->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tab_equipement->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+
+                for (int row = 0; row < rowCount; row++) {
+                    out << "<tr>";
+                    for (int column = 0; column < columnCount; column++) {
+                        if (!ui->tab_equipement->isColumnHidden(column)) {
+                            QString data = ui->tab_equipement->model()->data(ui->tab_equipement->model()->index(row, column)).toString().simplified();
+                            out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                        }
+                    }
+                    out << "</tr>\n";
+                }
+                out <<  "</table>\n"
+                    "</body>\n"
+                    "</html>\n";
+
+                QTextDocument *document = new QTextDocument();
+                document->setHtml(strStream);
+
+                QPrinter printer;
+
+                QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                if (dialog->exec() == QDialog::Accepted) {
+                    document->print(&printer);
+                }
+
+                delete document;
+}
+void MainWindow::on_pb_GM_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(19);
+}
+
+
+void MainWindow::on_pb_GR_clicked()
+{
+      ui->stackedWidget->setCurrentIndex(20);
+}
+
+
+
+void MainWindow::on_pb_GE_clicked()
+{
+      ui->stackedWidget->setCurrentIndex(18);
+}
+
+void MainWindow::on_pb_trailer_clicked()
+{
+  ui->stackedWidget->setCurrentIndex(21);
+}
+//menu
+void MainWindow::on_pb_ajouter_3_clicked()
+{
+
+    int id = ui->le_id->text().toInt();
+    QString nom = ui->le_nom_3->text();
+    double prix = ui->le_prix->text().toDouble();
+    QString categorie = ui->la_categorie->text();
+    // Création d'un objet normal,on parle pas de widgets içi :
+    Crud_Menu m;
+    m = Crud_Menu(id,nom,categorie,prix);
+    //
+    bool test = m.ajouter_menu();
+
+    if(test) {
+        QMessageBox::information(nullptr, QObject::tr("database is opened"),
+                                   QObject::tr("Menu ajouté !\n"
+                        "click ok to exit"),QMessageBox::Ok);
+
+    }
+else{QMessageBox::information(nullptr, QObject::tr("database is opened"),
+                              QObject::tr("erreur d'ajout !\n"
+                   "click ok to exit"),QMessageBox::Ok);}
+
+}
+
+
+
+
+
+void MainWindow::on_pb_supprimer_2_clicked()
+{
+    int id = ui->text_delete->text().toInt();
+    bool exist = crudMenu->recupere_menu(id);
+    bool test = crudMenu->supprimer_menu(id);
+
+
+    if(test && exist ==true) {
+        QMessageBox::information(nullptr,"Supprimer un menu","le menu a été supprimé avec succès !");//Qwidget ==> les composants mt3 qt dima initliasation ta3 ay QWidget heya nullptr manha maytpointa ala chay
+    }
+    else {
+        QMessageBox::information(nullptr,"Supprimer un menu ","suppression échouée !");//Qwidget ==> les composants mt3 qt dima initliasation ta3 ay QWidget heya nullptr;
+
+    }
+
+
+
+}
+
+void MainWindow::on_tabWidget_8_currentChanged(int index)// ki t7ot index = 1 ya3ni action tsir kif temchi teckliki ala colonne el indice mt3o 1 sinon mat7ot chy kol mat7el ay colone ysir execution mt3 méthode
+{
+    //  setmodel heya la partie blanche ta3 widget tableview
+    ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+}
+
+
+
+void MainWindow::on_pb_modifier_3_clicked()
+{
+    int id = ui->lineEdit->text().toInt();
+    QString nom = ui->lineEdit_3->text();
+    QString categorie = ui->lineEdit_4->text();
+    double prix = ui->lineEdit_5->text().toDouble();
+    Crud_Menu m ;
+    m = Crud_Menu(id,nom,categorie,prix);
+    bool  test = m.modifier_menu();
+
+    if(test) {
+        QMessageBox::information(nullptr,"Modifier un menu","le menu a été modifié avec succès !");
+    }
+    else {
+        QMessageBox::information(nullptr,"Modifier un menu ","Modification échouée !");
+
+    }
+}
+
+
+
+
+void MainWindow::on_check_box_id_clicked()
+{
+
+
+    ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+    if(ui->check_box_id->isChecked() == true)
+         ui->tableView_3->setModel(crudMenu->trie_id());
+   else
+        ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+}
+
+
+
+
+void MainWindow::on_pushButton_30_clicked()
+{
+    ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+    QString text_a_rechercher = ui->searchtxt->text();
+
+    ui->tableView_3->setModel(crudMenu->recherche_menu_selon_nom(text_a_rechercher));
+
+}
+
+
+
+void MainWindow::on_check_box_nom_clicked()
+{
+    ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+    if(ui->check_box_nom->isChecked() == true)
+         ui->tableView_3->setModel(crudMenu->trie_nom());
+   else
+        ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+}
+
+void MainWindow::on_check_box_categorie_clicked()
+{
+    ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+    if(ui->check_box_categorie->isChecked() == true)
+         ui->tableView_3->setModel(crudMenu->trie_categorie());
+   else
+        ui->tableView_3->setModel(crudMenu->afficher_menu());
+}
+
+void MainWindow::on_pushButton_31_clicked()
+{ ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+    QString text_a_rechercher = ui->searchtxt_2->text();
+
+    ui->tableView_3->setModel(crudMenu->recherche_menu_selon_categorie(text_a_rechercher));
+
+
+}
+
+/*void gestion_menu::on_lineEdit_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+            query->prepare("SELECT * FROM menu  WHERE IDMENU LIKE'"+arg1+"%' or NOMMENU  LIKE'"+arg1+"%' or CATEGORIEMENU LIKE'"+arg1+"%' or PRIX LIKE'"+arg1+"%' ");
+             query->exec();
+             if (query->next()) { }
+             else {
+                 QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                                 QObject::tr("NO MATCH FOUND !.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+                 ui->lineEdit->clear();}
+}
+
+void gestion_menu::on_text_delete_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+            QSqlQuery   *query= new QSqlQuery();
+            query->prepare("SELECT * FROM menu  WHERE IDMENU LIKE'"+arg1+"%' or NOMMENU  LIKE'"+arg1+"%' or CATEGORIEMENU LIKE'"+arg1+"%' or PRIX LIKE'"+arg1+"%' ");
+             query->exec();
+             if (query->next()) { }
+             else {
+                 QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                                 QObject::tr("NO MATCH FOUND !.\n"
+                                             "Click Cancel to exit."), QMessageBox::Cancel);
+                 ui->text_delete->clear();}
+}*/
+
+void MainWindow::on_pushButton_32_clicked()
+{
+    ui->tableView_3->setModel(crudMenu->afficher_menu());
+
+        int text_a_rechercher = ui->searchtxt_3->text().toInt();
+
+        ui->tableView_3->setModel(crudMenu->recherche_menu_selon_id(text_a_rechercher));
+}
+
+
+void MainWindow::on_pb_imprimer_menu_clicked()
+{
+    QString strStream;
+                QTextStream out(&strStream);
+
+
+
+                const int rowCount = ui->tableView->model()->rowCount();
+                const int columnCount = ui->tableView->model()->columnCount();
+
+                out <<  "<html>\n"
+                    "<head>\n"
+
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%60 les postes</title>\n").arg("poste")
+                    <<  "</head>\n"
+                    "<body bgcolor=#ffffff link=#5000A0>\n"
+                    "<table border=1 cellspacing=0 cellpadding=2>\n";
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (! ui->tableView->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tableView->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+
+                for (int row = 0; row < rowCount; row++) {
+                    out << "<tr>";
+                    for (int column = 0; column < columnCount; column++) {
+                        if (!ui->tableView->isColumnHidden(column)) {
+                            QString data = ui->tableView->model()->data(ui->tableView->model()->index(row, column)).toString().simplified();
+                            out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                        }
+                    }
+                    out << "</tr>\n";
+                }
+                out <<  "</table>\n"
+                    "</body>\n"
+                    "</html>\n";
+
+                QTextDocument *document = new QTextDocument();
+                document->setHtml(strStream);
+
+                QPrinter printer;
+
+                QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                if (dialog->exec() == QDialog::Accepted) {
+                    document->print(&printer);
+                }
+
+                delete document;
+}
+//recette
+void MainWindow::on_pb_ajouter1_clicked()
+{
+     int id=ui->le_id1->text().toInt();
+     QString nom=ui->le_nom1->text();
+     QString categorie=ui->la_categorie1->text();
+     QString ingredients=ui->les_ingredients->text();
+     Crud_Recette r;
+     r=Crud_Recette(id,nom,categorie,ingredients);
+     bool test=r.ajouter_recette();
+
+     if(test) {
+         QMessageBox::information(nullptr, QObject::tr("database is open"),
+                                    QObject::tr("Recette ajoutée !\n"
+                         "click ok to exit"),QMessageBox::Ok);
+
+     }
+ else{QMessageBox::information(nullptr, QObject::tr("database is open"),
+                               QObject::tr("erreur d'ajout !\n"
+                    "click ok to exit"),QMessageBox::Ok);}
+}
+
+void MainWindow::on_tabWidget_9_currentChanged(int index)
+{
+   ui->tableView1->setModel(crudRecette->afficher_recette());
+}
+
+void MainWindow::on_pb_supprimer1_clicked()
+{
+    int id = ui->text_delete1->text().toInt();
+    bool test = crudRecette->supprimer_recette(id);
+
+    if(test) {
+        QMessageBox::information(nullptr,"Supprimer une recette","la recette a été supprimée avec succès !");
+    }
+    else {
+        QMessageBox::information(nullptr,"Supprimer une recette ","suppression échouée !");
+
+    }
+}
+
+void MainWindow::on_pb_modifier1_clicked()
+{
+    int id = ui->lineEdit1->text().toInt();
+    QString nom = ui->lineEdit_22->text();
+    QString categorie = ui->lineEdit_33->text();
+    QString ingredients = ui->lineEdit_44->text();
+    Crud_Recette r ;
+    r = Crud_Recette(id,nom,categorie,ingredients);
+    bool  test = r.modifier_recette();
+
+    if(test) {
+        QMessageBox::information(nullptr,"Modifier un menu","la recette a été modifiée avec succès !");
+    }
+    else {
+        QMessageBox::information(nullptr,"Modifier un menu ","Modification échouée !");
+
+    }
+}
+
+void MainWindow::on_lineEdit1_textChanged(const QString &arg1)
+{  QSqlQueryModel *model= new QSqlQueryModel();
+    QSqlQuery   *query= new QSqlQuery();
+    query->prepare("SELECT * FROM recette  WHERE IDRECETTE LIKE'"+arg1+"%' or NOMRECETTE  LIKE'"+arg1+"%' or CATEGORIERECETTE LIKE'"+arg1+"%' or INGREDIENTSRECETTE LIKE'"+arg1+"%' ");
+     query->exec();
+     if (query->next()) { }
+     else {
+         QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                         QObject::tr("NO MATCH FOUND !.\n"
+                                     "Click Cancel to exit."), QMessageBox::Cancel);
+         ui->lineEdit1->clear();}
+
+}
+
+void MainWindow::on_text_delete1_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+        QSqlQuery   *query= new QSqlQuery();
+        query->prepare("SELECT * FROM recette  WHERE IDRECETTE LIKE'"+arg1+"%' or NOMRECETTE  LIKE'"+arg1+"%' or CATEGORIERECETTE LIKE'"+arg1+"%' or INGREDIENTSRECETTE LIKE'"+arg1+"%' ");
+         query->exec();
+         if (query->next()) { }
+         else {
+             QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                             QObject::tr("NO MATCH FOUND !.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+             ui->text_delete1->clear();}
+
+}
+
+void MainWindow::on_pb_pdf_2_clicked()
+{
+    QPdfWriter pdf("C:/Users/dhia/Documents/pp - Copie/Recettes.pdf");
+
+                          QPainter painter(&pdf);
+                         int i = 4000;
+                              painter.setPen(Qt::red);
+                              painter.setFont(QFont("Arial", 30));
+                              painter.drawText(2300,1200,"Liste Des Recettes");
+                              painter.setPen(Qt::black);
+                              painter.setFont(QFont("Arial", 50));
+                             // painter.drawText(1100,2000,afficheDC);
+                              painter.drawRect(1500,200,7300,2600);
+                              painter.drawPixmap(QRect(100,700,600,600),QPixmap("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/150123410_1102641506814079_4892972152459660250_n.png"));
+                              painter.drawRect(0,3000,9600,500);
+                              painter.setFont(QFont("Arial", 9));
+                              painter.drawText(300,3300,"ID_RECETTE");
+                              painter.drawText(2300,3300,"NOM_RECETTE");
+                              painter.drawText(4300,3300,"CATEGORIE_RECETTE");
+                              painter.drawText(6300,3300,"INGREDIENTS_RECETTE");
+
+
+
+
+                              QSqlQuery query;
+                              query.prepare("select * from RECETTE");
+                              query.exec();
+                              while (query.next())
+                              {
+                                  painter.drawText(300,i,query.value(0).toString());
+                                  painter.drawText(2300,i,query.value(1).toString());
+                                  painter.drawText(4300,i,query.value(2).toString());
+                                  painter.drawText(6300,i,query.value(3).toString());
+
+
+
+
+                                 i = i +500;
+                              }
+                              int reponse = QMessageBox::question(this, "Génération PDF", "<PDF Enregistré>...Voudrez vous Afficher Le PDF ?", QMessageBox::Yes |  QMessageBox::No);
+                                  if (reponse == QMessageBox::Yes)
+                                  {
+                                      QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/ASUS/Desktop/solo/semestre 2/projet c++/cuisine/Recettes.pdf"));
+
+                                      painter.end();
+                                  }
+                                  if (reponse == QMessageBox::No)
+                                  {
+                                       painter.end();
+                                  }
+}
+
+void MainWindow::on_pb_consulter_clicked()
+{
+    statistics *g = new statistics(this);
+    g->show();
+}
+
+
+void MainWindow::on_pb_imprimer_recette_clicked()
+{
+    QString strStream;
+                QTextStream out(&strStream);
+
+
+
+                const int rowCount = ui->tableView1->model()->rowCount();
+                const int columnCount = ui->tableView1->model()->columnCount();
+
+                out <<  "<html>\n"
+                    "<head>\n"
+
+                    "<meta Content=\"Text/html; charset=Windows-1251\">\n"
+                    <<  QString("<title>%60 les postes</title>\n").arg("poste")
+                    <<  "</head>\n"
+                    "<body bgcolor=#ffffff link=#5000A0>\n"
+                    "<table border=1 cellspacing=0 cellpadding=2>\n";
+                out << "<thead><tr bgcolor=#f0f0f0>";
+                for (int column = 0; column < columnCount; column++)
+                    if (! ui->tableView1->isColumnHidden(column))
+                        out << QString("<th>%1</th>").arg(ui->tableView1->model()->headerData(column, Qt::Horizontal).toString());
+                out << "</tr></thead>\n";
+
+                for (int row = 0; row < rowCount; row++) {
+                    out << "<tr>";
+                    for (int column = 0; column < columnCount; column++) {
+                        if (!ui->tableView1->isColumnHidden(column)) {
+                            QString data = ui->tableView1->model()->data(ui->tableView1->model()->index(row, column)).toString().simplified();
+                            out << QString("<td bkcolor=0>%1</td>").arg((!data.isEmpty()) ? data : QString("&nbsp;"));
+                        }
+                    }
+                    out << "</tr>\n";
+                }
+                out <<  "</table>\n"
+                    "</body>\n"
+                    "</html>\n";
+
+                QTextDocument *document = new QTextDocument();
+                document->setHtml(strStream);
+
+                QPrinter printer;
+
+                QPrintDialog *dialog = new QPrintDialog(&printer, NULL);
+                if (dialog->exec() == QDialog::Accepted) {
+                    document->print(&printer);
+                }
+
+                delete document;
+}
+
+//video
+void MainWindow::on_ouvrir_clicked()
+{
+    QString filename=QFileDialog::getOpenFileName(this,"Ouvrir");
+    if(filename.isEmpty())
+    {
+        return;
+    }
+    mediaPlayer->setMedia(QUrl::fromLocalFile(filename));
+    mediaPlayer->setVolume(ui->volume->value());
+    on_jouer_clicked();
+}
+
+void MainWindow::on_jouer_clicked()
+{
+    mediaPlayer->play();
+}
+
+void MainWindow::on_pause_clicked()
+{
+    mediaPlayer->pause();
+}
+
+void MainWindow::on_stop_clicked()
+{
+    mediaPlayer->stop();
+}
+
+void MainWindow::on_mute_clicked()
+{
+    if(ui->mute->text()=="Mute")
+    {
+    mediaPlayer->setMuted(true);
+    ui->mute->setText("Unmute");
+    }
+    else
+    {
+        mediaPlayer->setMuted(false);
+        ui->mute->setText("Mute");
+    }
+}
+
+void MainWindow::on_volume_valueChanged(int value)
+{
+    mediaPlayer->setVolume(value);
+}
+
+
+
+
+
+void MainWindow::on_pb_retoureq_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(17);
+}
+//riadh
+void MainWindow::on_pb_ajouter_4_clicked()
+{
+    fournisseurs tmpfournisseur(ui->lineEdit_id_four->text(),ui->lineEdit_nom_four->text(),ui->lineEdit_adresse_four->text(),ui->lineEdit_tel_four->text().toInt(),ui->lineEdit_mail_four->text());
+           QString id= ui->lineEdit_id_four->text();
+           QString nom= ui->lineEdit_nom_four->text();
+           QString adresse=ui->lineEdit_adresse_four->text();
+           int tel=ui->lineEdit_tel_four->text().toInt();
+
+        bool test=tmpfournisseur.ajouter_fournisseur();
+             if(id==""||nom==""||adresse=="" ||tel==0 ||tmpfournisseur.testmail(tmpfournisseur.getMail())==false)
+             {
+                QMessageBox::critical(nullptr, QObject::tr("vide"),
+                                                 QObject::tr("veuillez saisir tous les champs correctement!\n"), QMessageBox::Cancel);
+
+             }
+
+               else if(test==true){
+                QMessageBox::information(nullptr, QObject::tr("database is open"),
+                                QObject::tr("fournisseur ajoutée:\n"
+                     "click ok to exit"),QMessageBox::Ok);
+                tmpfournisseur. ajouter_fournisseur();
+               ui->tabfournisseur->setModel(tmpfournisseur.afficher_fournisseur());}
+             else{
+                 QMessageBox::information(nullptr, QObject::tr("database is open"),
+                                           QObject::tr("fournisseur existe deja:\n"
+                                "click ok to exit"),QMessageBox::Ok);
+             }
+
+
+}
+
+
+
+void MainWindow::on_pb_supprimer_3_clicked()
+{
+
+    QString id= ui->lineEdit_id_four_2->text();
+    bool test=tmpfournisseur.supprimer_fournisseur(id);
+    ui->tabfournisseur->setModel(tmpfournisseur.afficher_fournisseur());  //refresh
+
+     if(test){
+    foreach(QLineEdit* le, findChildren<QLineEdit*>()) {
+         le->clear();}
+
+    QMessageBox::information(this, QObject::tr("Supprimer un fournisseur"),
+            QObject::tr("fournisseur supprimé.\n"
+                        "Click Cancel to exit."), QMessageBox::Cancel);
+
+    }else
+    QMessageBox::information(this, QObject::tr("Supprimer un fournisseur"),
+            QObject::tr("Erreur !.\n"
+                        "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+
+
+void MainWindow::on_pb_modifier_4_clicked()
+{
+         QString id= ui->lineEdit_id_four_3->text();
+         QString nom= ui->lineEdit_nom_four_3->text();
+         QString adresse= ui->lineEdit_adresse_four_3->text();
+         int tel= ui->lineEdit_tel_four_3->text().toInt();
+         QString mail= ui->lineEdit_mail_four_3->text();
+
+        fournisseurs f(id,nom,adresse,tel,mail);
+
+         bool test=f.modifier_fournisseur();
+         ui->tabfournisseur->setModel(tmpfournisseur.afficher_fournisseur());
+
+         if (test)
+         {
+             foreach(QLineEdit* le, findChildren<QLineEdit*>()) {
+                  le->clear();}
+             QMessageBox::information(this, QObject::tr("Modifier un fournisseur"),
+                     QObject::tr("fournisseur modifié.\n"
+                                 "Click Cancel to exit."), QMessageBox::Cancel);
+
+         }else
+             QMessageBox::critical(this, QObject::tr("Modifier un fournisseur"),
+                     QObject::tr("Erreur !.\n"
+                                 "Click Cancel to exit."), QMessageBox::Cancel);
+}
+
+
+
+
+
+
+void MainWindow::on_pb_ajouter_prod_clicked()
+{
+    QString id= ui->lineEdit_id_prod->text();
+    QString nom= ui->lineEdit_nom_prod->text();
+    int prix= ui->lineEdit_prix_prod->text().toInt();
+    int quantite= ui->lineEdit_quantite_prod->text().toInt();
+
+   produits p(id,nom,prix,quantite);
+   bool test=p.ajouter_produit();
+   ui->tabproduit->setModel(tmpProd.afficher_produit());
+
+   if(test){
+       foreach(QLineEdit* le, findChildren<QLineEdit*>())
+       { le->clear(); }
+
+     QMessageBox::information(this, QObject::tr("Ajouter un produit"),
+     QObject::tr(" produit ajouté.\n"
+                 "Click Cancel to exit."), QMessageBox::Cancel);
+
+   }
+   else
+       QMessageBox::information(this, QObject::tr("Ajouter un produit"),
+                   QObject::tr("Erreur !.\n"
+                               "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_pb_supprimer_prod_clicked()
+{
+    QString id= ui->lineEdit_id_prod_2->text();
+    bool test=tmpProd.supprimer_produit(id);
+    ui->tabproduit->setModel(tmpProd.afficher_produit());//refresh
+
+     if(test){
+    foreach(QLineEdit* le, findChildren<QLineEdit*>()) {
+         le->clear();}
+
+    QMessageBox::information(this, QObject::tr("Supprimer un produit"),
+            QObject::tr("produit supprimé.\n"
+                        "Click Cancel to exit."), QMessageBox::Cancel);
+
+    }else
+    QMessageBox::information(this, QObject::tr("produit un fournisseur"),
+            QObject::tr("Erreur !.\n"
+                        "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_pb_modifier_prod_clicked()
+{
+    QString id= ui->lineEdit_id_prod_3->text();
+    QString nom= ui->lineEdit_nom_prod_3->text();
+    int prix= ui->lineEdit_prix_prod_3->text().toInt();
+    int quantite= ui->lineEdit_quantite_prod_3->text().toInt();
+
+   produits p(id,nom,prix,quantite);
+
+    bool test=p.modifier_produit();
+    ui->tabproduit->setModel(tmpProd.afficher_produit());
+
+    if (test)
+    {
+        foreach(QLineEdit* le, findChildren<QLineEdit*>()) {
+             le->clear();}
+        QMessageBox::information(this, QObject::tr("Modifier un produit"),
+                QObject::tr("produit modifié.\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+
+    }else
+        QMessageBox::critical(this, QObject::tr("Modifier un produit"),
+                QObject::tr("Erreur !.\n"
+                            "Click Cancel to exit."), QMessageBox::Cancel);
+
+}
+
+void MainWindow::on_radioB_tri_id_clicked()
+{
+    ui->tabproduit->setModel(tmpProd.afficher_produit());
+    ui->tabproduit->setModel(tmpProd.trier_id());
+}
+
+void MainWindow::on_radioB_tri_nom_clicked()
+{
+    ui->tabproduit->setModel(tmpProd.afficher_produit());
+    ui->tabproduit->setModel(tmpProd.trier_nom());
+}
+
+void MainWindow::on_radioB_tri_prix_clicked()
+{
+    ui->tabproduit->setModel(tmpProd.afficher_produit());
+    ui->tabproduit->setModel(tmpProd.trier_prix());
+
+
+}
+
+
+
+
+
+void MainWindow::on_pb_rechercher_id_clicked()
+{
+    QString id = ui->lineEdit_id_four_4->text();
+    ui->four_trouve->setModel(tmpfournisseur.afficher_four_id(id));
+}
+
+void MainWindow::on_pb_rechercher_nom_clicked()
+{
+    QString nom = ui->lineEdit_nom_four_4->text();
+    ui->four_trouve->setModel(tmpfournisseur.afficher_four_nom(nom));
+}
+
+void MainWindow::on_pb_rechercher_adresse_clicked()
+{
+    QString adresse = ui->lineEdit_adresse_four_4->text();
+    ui->four_trouve->setModel(tmpfournisseur.afficher_four_adr(adresse));
+}
+
+
+
+
+
+
+
+void MainWindow::on_pb_imprimer_2_clicked()
+{
+    QPdfWriter pdf("C:/Users/dhia/Documents/pp - Copie/Pdfproduit.pdf");
+                             QPainter painter(&pdf);
+                            int i = 4000;
+                                 painter.setPen(Qt::red);
+
+                                 painter.setFont(QFont("Arial", 30));
+                                 painter.drawText(2300,1200,"Liste Des produit");
+                                 painter.setPen(Qt::black);
+                                 painter.setFont(QFont("Arial", 50));
+                                 painter.drawRect(1000,200,7000,2000);
+                                 painter.drawRect(0,3000,9600,500);
+                                 painter.setFont(QFont("Arial", 9));
+                                 painter.drawText(300,3300,"ID");
+                                 painter.drawText(2300,3300,"NOM");
+                                 painter.drawText(4300,3300,"PRIX");
+                                 painter.drawText(6300,3300,"QUANTITE");
+
+
+
+
+                                 QSqlQuery query;
+                                 query.prepare("select * from PRODUIT");
+                                 query.exec();
+                                 while (query.next())
+                                 {
+                                     painter.drawText(300,i,query.value(0).toString());
+                                     painter.drawText(2300,i,query.value(1).toString());
+                                     painter.drawText(4300,i,query.value(2).toString());
+                                     painter.drawText(6300,i,query.value(3).toString());
+
+
+
+
+                                    i = i +500;
+                                 }
+                                 int reponse = QMessageBox::question(this, "Génerer PDF", "<PDF Enregistré>...Vous Voulez Affichez Le PDF ?",
+                                                                     QMessageBox::Yes |  QMessageBox::No);
+                                     if (reponse == QMessageBox::Yes)
+                                     {
+                                         QDesktopServices::openUrl(QUrl::fromLocalFile("C:/Users/HP/Desktop/projet/Pdfproduit.pdf"));
+
+                                         painter.end();
+                                     }
+                                     else
+                                     {
+                                          painter.end();
+}}
+
+void MainWindow::on_checkBox_ARABE_clicked()
+{
+    if (ui->checkBox_ARABE->isChecked())
+           {
+         // mariemmmm -----------------------------------
+
+           ui->gerer_f_2->setTabText(0,"إدارة المورد");
+           ui->gerer_f_2->setTabText(1,"إدارة المنتج");
+           ui->tabWidget->setTabText(0,"إضافة مورد");
+           ui->tabWidget->setTabText(1,"عرض المورد");
+           ui->tabWidget->setTabText(2,"تعديل المورد");
+
+
+
+
+
+           ui->tabWidget_2->setTabText(0,"إضافة المنتج");
+           ui->tabWidget_2->setTabText(1,"عرض المنتج");
+           ui->tabWidget_2->setTabText(2,"تعديل المنتج");
+
+
+
+
+
+
+         // ajouter four
+         ui->pb_ajouter->setText( tr("أضف"));
+         ui->label_23->setText( tr("المعرف"));
+         ui->label->setText( tr("الإسم"));
+         ui->label_2->setText( tr("العنوان"));
+         ui->label_3->setText( tr("الهاتف"));
+         ui->label_4->setText( tr("البريد الإلكتروني"));
+
+         // afficher four
+
+         ui->pb_supprimer->setText( tr("إزالة"));
+         ui->label_5->setText( tr("المعرف"));
+         ui->pb_rechercher_id->setText( tr("البحث عن طريق معرف"));
+         ui->label_6->setText( tr("المعرف"));
+         ui->pb_rechercher_nom->setText( tr("البحث عن طريق الإسم"));
+         ui->label_21->setText( tr("الإسم"));
+          ui->pb_rechercher_adresse->setText( tr("البحث عن طريق العنوان"));
+         ui->label_22->setText( tr("العنوان"));
+
+         // modifier four
+
+         ui->pb_modifier->setText( tr("تعديل"));
+         ui->label_24->setText( tr("المعرف"));
+         ui->label_8->setText( tr("الإسم"));
+         ui->label_9->setText( tr("العنوان"));
+         ui->label_10->setText( tr("الهاتف"));
+         ui->label_11->setText( tr("البريد الإلكتروني"));
+
+         // ajout prod
+         ui->pb_ajouter_prod->setText( tr("أضف"));
+         ui->label_7->setText( tr("المعرف"));
+         ui->label_12->setText( tr(" معرف المزود"));
+         ui->label_13->setText( tr("سعر"));
+         ui->label_14->setText( tr("كمية"));
+
+         // afficher prod
+         ui->pb_supprimer_prod->setText( tr("إزالة"));
+         ui->label_15->setText( tr("المعرف"));
+         ui->pb_imprimer->setText( tr("طباعة"));
+         ui->label_16->setText( tr("المعرف"));
+
+         ui->radioB_tri_id->setText( tr("الترتيب حسب المعرف"));
+         ui->radioB_tri_nom->setText( tr("الترتيب حسب الاسم"));
+         ui->radioB_tri_prix->setText( tr("الترتيب حسب السعر"));
+
+         // modifier prod
+         ui->pb_modifier_prod->setText( tr("تعديل"));
+         ui->label_17->setText( tr("المعرف"));
+         ui->label_18->setText( tr("الإسم"));
+         ui->label_19->setText( tr("سعر"));
+         ui->label_20->setText( tr("كمية"));
+
+
+
+
+
+
+
+
+       }
+
+       else
+       {
+            // mariemmmm -----------------------------------
+
+
+        ui->gerer_f_2->setTabText(0,"gerer fournisseur");
+        ui->gerer_f_2->setTabText(1,"gerer produit");
+        ui->tabWidget->setTabText(0,"ajouter fournisseur");
+        ui->tabWidget->setTabText(1,"afficher fournisseur");
+        ui->tabWidget->setTabText(2,"modifier fournisseur");
+
+
+
+
+        ui->tabWidget_2->setTabText(0,"ajouter produits");
+        ui->tabWidget_2->setTabText(1,"afficher produits");
+        ui->tabWidget_2->setTabText(2,"modifier produits");
+
+
+        ui->pb_ajouter->setText( tr("Ajouter"));
+        ui->label_23->setText( tr("Id"));
+        ui->label->setText( tr("Nom"));
+        ui->label_2->setText( tr("Adresse"));
+        ui->label_3->setText( tr("Tel"));
+        ui->label_4->setText( tr("Mail"));
+
+
+        ui->pb_supprimer->setText( tr("Supprimer"));
+        ui->label_5->setText( tr("Id"));
+        ui->pb_rechercher_id->setText( tr("Rechercher par id"));
+        ui->label_6->setText( tr("Id"));
+        ui->pb_rechercher_nom->setText( tr("Rechercher par nom"));
+        ui->label_21->setText( tr("Nom"));
+         ui->pb_rechercher_adresse->setText( tr("Rechercher par adresse"));
+        ui->label_22->setText( tr("Adresse"));
+
+
+
+        ui->pb_modifier->setText( tr("Modifier"));
+        ui->label_24->setText( tr("Id"));
+        ui->label_8->setText( tr("Nom"));
+        ui->label_9->setText( tr("Adresse"));
+        ui->label_10->setText( tr("Tel"));
+        ui->label_11->setText( tr("Mail"));
+
+
+
+        ui->pb_ajouter_prod->setText( tr("Ajouter"));
+        ui->label_7->setText( tr("Id"));
+        ui->label_12->setText( tr("Id fournisseur"));
+        ui->label_13->setText( tr("Prix"));
+        ui->label_14->setText( tr("Quantite"));
+
+
+
+        ui->pb_supprimer_prod->setText( tr("Supprimer"));
+        ui->label_15->setText( tr("Id"));
+        ui->pb_imprimer->setText( tr("Imprimer"));
+        ui->label_16->setText( tr("Id"));
+
+        ui->radioB_tri_id->setText( tr("Trie par id"));
+        ui->radioB_tri_nom->setText( tr("Trie par nom"));
+         ui->radioB_tri_prix->setText( tr("Trie par prix"));
+
+
+
+         ui->pb_modifier_prod->setText( tr("Modifier"));
+         ui->label_17->setText( tr("Id"));
+         ui->label_18->setText( tr("Nom"));
+         ui->label_19->setText( tr("Prix"));
+         ui->label_20->setText( tr("Quantite"));
+
+
+
+
+
+
+
+
+
+
+
+
+       }
+}
 

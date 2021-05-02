@@ -9,10 +9,45 @@
 #include"cartefid.h"
 #include "commande.h"
 #include "reservation.h"
-
+#include"poste.h"
+#include"employe.h"
+#include <QMainWindow>
+#include <QMessageBox>
+#include <QRegularExpression>
+#include <QTableWidgetItem>
+#include <QItemSelectionModel>
+#include <QDebug>
+#include <QSqlTableModel>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <qtextbrowser.h>
+#include <QtCharts/QLegend>
+#include <QPropertyAnimation>
+#include <QSound>
+#include <QInputDialog>
+#include <QWidget>
+#include "crud_equipement.h"
+#include "crud_menu.h"
+#include <QTranslator>
+#include <QDialog>
+#include "crud_recette.h"
+#include<QLayout>
+#include <QWidget>
+#include "fournisseurs.h"
+#include "produits.h"
+#include <QSqlQuery>
+#include <QMainWindow>
+#include "ui_mainwindow.h"
+#include "connexion.h"
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+namespace Ui {
+class Video_Play;
+}
+class QMediaPlayer;
+class QVideoWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -26,7 +61,7 @@ private slots:
 
     void on_pb_ajouter_clicked();
 
-    void on_pushButton_clicked();
+   // void on_pushButton_clicked();
 
     void on_pb_retour_clicked();
 
@@ -36,7 +71,7 @@ private slots:
 
     void on_pb2_ajouter_clicked();
 
-    void on_pushButton_2_clicked();
+    //void on_pushButton_2_clicked();
 
 
 
@@ -226,6 +261,164 @@ private slots:
 
     void on_code2_cursorPositionChanged(int arg1, int arg2);
 
+
+
+    void on_historique_clicked();
+
+    void on_chat_clicked();
+
+
+    //yassin
+    void on_ajouter_button_clicked();
+       void on_SUPPRIMER8BUTTON_clicked();
+
+    //   void on_pushButton_3_clicked();
+
+       void on_pushButton_recherche_clicked();
+
+       void on_tri_button_clicked();
+
+       void on_modifier_button_clicked();
+
+       //void on_pushButton_clicked();
+
+      // void on_pushButton_2_clicked();
+
+       void on_ajouter_button_2_clicked();
+
+      // void on_pushButton_4_clicked();
+
+       void on_modifier_button_2_clicked();
+
+       void on_pushButton_recherche_2_clicked();
+
+       void on_SUPPRIMER8BUTTON_2_clicked();
+
+       void on_tri_button_2_clicked();
+
+       void on_retour_button_2_clicked();
+
+       void on_retour_button_clicked();
+
+
+       void on_pushButton_23_clicked();
+
+       void on_pushButton_24_clicked();
+
+       void on_employebutt_clicked();
+
+       void on_postebouton_clicked();
+//molka
+
+       void on_ajout_eq_clicked();
+
+       void on_tabWidget_7_currentChanged(int index);
+
+       void on_pb_modifierequipement_clicked();
+
+       void on_pb_suppeq_clicked();
+
+       void on_pdf_eq_clicked();
+
+       void on_pb_imprimer_clicked();
+
+       void on_pb_GE_clicked();
+
+       void on_pb_GM_clicked();
+
+
+       void on_pb_GR_clicked();
+
+       void on_pb_trailer_clicked();
+       //gestion menu
+       void on_pb_ajouter_3_clicked();
+
+
+       void on_pb_supprimer_2_clicked();
+
+       void on_pb_modifier_3_clicked();
+
+       void on_tabWidget_8_currentChanged(int index);
+
+
+       void on_check_box_id_clicked();
+
+       void on_pushButton_30_clicked();
+
+       void on_check_box_nom_clicked();
+
+       void on_check_box_categorie_clicked();
+
+       void on_pushButton_31_clicked();
+
+
+
+       void on_pushButton_32_clicked();
+
+       void on_pb_imprimer_menu_clicked();
+       //recette
+       void on_pb_ajouter1_clicked();
+
+       void on_tabWidget_9_currentChanged(int index);
+
+       void on_pb_supprimer1_clicked();
+
+       void on_pb_modifier1_clicked();
+
+       void on_lineEdit1_textChanged(const QString &arg1);
+
+       void on_text_delete1_textChanged(const QString &arg1);
+
+       void on_pb_pdf_2_clicked();
+
+       void on_pb_consulter_clicked();
+
+       void on_pb_imprimer_recette_clicked();
+       //video
+
+       void on_ouvrir_clicked();
+
+       void on_jouer_clicked();
+
+       void on_pause_clicked();
+
+       void on_stop_clicked();
+
+       void on_mute_clicked();
+
+       void on_volume_valueChanged(int value);
+
+       void on_pb_retoureq_clicked();
+       //riadh fournisseur
+
+       void on_pb_ajouter_4_clicked();
+       void on_pb_supprimer_3_clicked();
+       void on_pb_modifier_4_clicked();
+
+       void on_pb_ajouter_prod_clicked();
+       void on_pb_supprimer_prod_clicked();
+       void on_pb_modifier_prod_clicked();
+
+       void on_radioB_tri_id_clicked();
+       void on_radioB_tri_nom_clicked();
+       void on_radioB_tri_prix_clicked();
+
+
+
+
+       void on_pb_rechercher_id_clicked();
+
+       void on_pb_rechercher_nom_clicked();
+
+       void on_pb_rechercher_adresse_clicked();
+
+
+
+       void on_pb_imprimer_2_clicked();
+
+       void on_checkBox_ARABE_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     reclamation R;
@@ -235,6 +428,15 @@ private:
     Clientfid C;
     reservation RE;
     commande CO;
-
+    projeth tmph;
+    Employe tempemploye;
+    poste tempposte ;
+    crud_equipement * crudEquipement;
+    Crud_Menu *crudMenu;
+     Crud_Recette *crudRecette;
+     QMediaPlayer * mediaPlayer;
+     QVideoWidget * videoWidget;
+     fournisseurs tmpfournisseur;
+     produits tmpProd;
 };
 #endif // MAINWINDOW_H
