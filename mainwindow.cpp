@@ -771,6 +771,12 @@ void MainWindow::on_pushButton_2clicked()
 void MainWindow::on_pb_ajouter_2_clicked()
 {bool test;
     Cartefid E(ui->le_cin->text().toInt(),ui->le_nom_2->text(),ui->le_prenom->text().toInt(),ui->dateTimeEdit->date());
+    srand (time(NULL));
+             QDate d = QDate::currentDate() ;
+              QString datee =d.toString("dd / MM / yyyy ") ;
+              QString fn="ajouter" ;
+             QString nom1 = ui->le_nom_2->text();
+           projeth pp(nom1,datee,fn) ;
    if(ui->le_nom_2->text().isEmpty())
     {
        QMessageBox::critical(nullptr, QObject::tr("vide"),
@@ -807,6 +813,13 @@ void MainWindow::on_td_supp_clicked()
 {
     bool test;
        Cartefid E1; E1.setcin(ui->le_cin_supp->text().toInt());
+
+       srand (time(NULL));
+                QDate d = QDate::currentDate() ;
+                 QString datee =d.toString("dd / MM / yyyy ") ;
+                 QString fn="supprimer" ;
+                QString nom1 = ui->le_cin_supp->text();
+              projeth pp(nom1,datee,fn) ;
         test =E1.supprimer(E1.getcin());
 
         QMessageBox::information(nullptr, QObject::tr("database is open"),
@@ -822,8 +835,14 @@ void MainWindow::on_pb_modifier_2_clicked()
     E2.setpoint(ui->le_nom_modifier->text());
     E2.setid_carte(ui->le_prenom_modifier->text().toInt());
     E2.setda(ui->dateTimeEdit_2->date());
-
+    srand (time(NULL));
+             QDate d = QDate::currentDate() ;
+              QString datee =d.toString("dd / MM / yyyy ") ;
+              QString fn="modifier" ;
+             QString nom1 = ui->le_nom_modifier->text();
+           projeth pp(nom1,datee,fn) ;
    E2.modifier(E2.getcin(),E2.getpoint(),E2.getid_carte(),E2.getda());
+
     QMessageBox::information(nullptr, QObject::tr("database is open"),
             QObject::tr("cartefid modifier:\n"
  "click ok to exit"),QMessageBox::Ok);
@@ -862,7 +881,7 @@ void MainWindow::on_ajouterclie_clicked()
                  QDate d = QDate::currentDate() ;
                   QString datee =d.toString("dd / MM / yyyy ") ;
                   QString fn="ajouter" ;
-                 QString nom1 = ui->le_nom->text();
+                 QString nom1 = ui->c_nom->text();
                projeth pp(nom1,datee,fn) ;
                bool test1=pp.ajoutehis() ;
      if(C.testmail(C.getmail())==false)
@@ -901,7 +920,16 @@ void MainWindow::on_supp_clicked()
 {Clientfid C;
 
     int cin = ui->c_supp->text().toInt();
+    srand (time(NULL));
+             QDate d = QDate::currentDate() ;
+              QString datee =d.toString("dd / MM / yyyy ") ;
+              QString fn="supprimer" ;
+             QString nom1 = ui->c_supp->text();
+           projeth pp(nom1,datee,fn) ;
+           bool test1=pp.ajoutehis() ;
       bool test= C.supprimer(cin);
+
+
 
         if (test)
         {
@@ -955,8 +983,16 @@ void MainWindow::on_modifierclient_clicked()
     C2.setmail(ui->c_mail_modifier->text());
 
    C2.modifier(C2.getcin(),C2.getnom(),C2.getprenom(),C2.getnum(),C2.getmail());
+   srand (time(NULL));
+            QDate d = QDate::currentDate() ;
+             QString datee =d.toString("dd / MM / yyyy ") ;
+             QString fn="modifier" ;
+            QString nom1 = ui->c_cin_modifier->text();
+          projeth pp(nom1,datee,fn) ;
+          bool test1=pp.ajoutehis() ;
 
    bool test2=C2.modifier(C2.getcin(),C2.getnom(),C2.getprenom(),C2.getnum(),C2.getmail());
+
 
    if(test2==true){
     QMessageBox::information(nullptr, QObject::tr("database is open"),
@@ -1715,6 +1751,7 @@ void MainWindow::on_historique_clicked()
 {
     ui->tabhis->setModel(tmph.afficherhis()) ;
             ui->tabhis->setModel(tmph.afficherhis());//refresh
+
 }
 
 void MainWindow::on_chat_clicked()
