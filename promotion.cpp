@@ -22,7 +22,7 @@ promotion::promotion(int id,QString nom,QDate dat_cre,QDate dat_exp)
  this->dat_exp=dat_exp;
  this->id=id;
 
-//m
+
 }
 bool promotion::ajouter2()
 {

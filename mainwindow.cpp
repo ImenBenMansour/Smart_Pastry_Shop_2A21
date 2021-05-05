@@ -14,12 +14,79 @@
 #include <QPrinter>
 #include <QPrintDialog>
 #include <QPainter>
+#include <QCamera>
+#include <QCameraViewfinder>
+#include <QCameraImageCapture>
+#include <QVBoxLayout>
+#include<QMenu>
+#include <QAction>
+#include <QFileDialog>
+#include"offres.h"
+
+
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    //offres
+
+    ui->tab_of->setModel(O.afficher());
+    ui->id_of->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->nom_of->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->prix_of->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->off_supp->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->nom_modi1->setValidator(new QRegExpValidator(QRegExp("[A-Za-z]+")));
+    ui->prix_modi1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+    ui->id_modi1->setValidator(new QRegExpValidator(QRegExp("[0-9]{8}")));
+
+
+    //cam
+    mCamera =new QCamera(this);
+    mCameraViewfinder =new QCameraViewfinder(this);
+    mCameraImageCapture =new QCameraImageCapture(mCamera,this);
+    mLayout =new QVBoxLayout;
+
+    mOptionMenu = new QMenu("option",this);
+    mAllumerAction= new QAction("allumer",this);
+    mEteindreAction= new QAction("etteindre",this);
+    mCapturerAction= new QAction("capturer",this);
+
+    mOptionMenu->addActions({mAllumerAction,mEteindreAction,
+                             mCapturerAction  });
+    ui->option->setMenu(mOptionMenu);
+    mCamera->setViewfinder(mCameraViewfinder);
+    mLayout->addWidget(mCameraViewfinder);
+    mLayout->setMargin(0);
+    ui->scrollArea->setLayout(mLayout);
+
+
+    connect(mAllumerAction,&QAction::triggered  , [&](){
+        mCamera->start();
+    });
+    connect(mEteindreAction,&QAction::triggered, [&](){
+        mCamera->stop();
+    });
+    connect(mCapturerAction,&QAction::triggered, [&](){
+        auto filename =QFileDialog::getSaveFileName(this,"Capturer","/",
+                                     "Imagen (*.jpg;*.jpeg)");
+        if(filename.isEmpty()){
+           return;
+        }
+        mCameraImageCapture->setCaptureDestination(
+                    QCameraImageCapture::CaptureToFile);
+        QImageEncoderSettings imageEncoderSettings;
+        imageEncoderSettings.setCodec("image/jpeg");
+        imageEncoderSettings.setResolution(1600,1200);
+        mCameraImageCapture->setEncodingSettings(imageEncoderSettings);
+        mCamera->setCaptureMode(QCamera::CaptureStillImage);
+        mCamera->start();
+        mCamera->searchAndLock();
+        mCameraImageCapture->capture(filename);
+        mCamera->unlock();
+    });
+
     //ARDUINO
     int ret=A.connect_arduino(); // lancer la connexion à arduino
     switch(ret){
@@ -69,7 +136,9 @@ void MainWindow::on_pb_ajouter_clicked()
     reclamation R(ui->le_id_rec->text().toInt(),ui->le_des_rec->text(),ui->le_mail_rec->text(),ui->le_dat->date());
        int id_rec= ui->le_id_rec->text().toInt();
        QString des_rec= ui->le_des_rec->text();
+        N.notification_ajoutReclamation();
     bool test=R.ajouter();
+
          if(id_rec==0||des_rec==""||R.testmail(R.getmail_rec())==false)
          {
             QMessageBox::critical(nullptr, QObject::tr("vide"),
@@ -84,10 +153,13 @@ void MainWindow::on_pb_ajouter_clicked()
             ui->tab_rec->setModel(R.afficher());
               ui->tableView->setModel(R.afficher());
          }
+
          else{QMessageBox::information(nullptr, QObject::tr("database is open"),
                                        QObject::tr("reclamation existe deja:\n"
                             "click ok to exit"),QMessageBox::Ok);}
- N.notification_ajoutReclamation();
+
+
+
              R.ajouter();
 
 
@@ -563,4 +635,198 @@ void MainWindow::on_pushButton_8_clicked()
     reclamation R;
 
         ui->tab_rec->setModel(R.reset());
+}
+
+void MainWindow::on_pb_comptage_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(5);
+}
+
+
+
+
+
+
+void MainWindow::on_Camera_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(6);
+
+}
+//offres
+
+
+void MainWindow::on_pb_offres_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(7);
+}
+
+void MainWindow::on_pb_ajouter_2_clicked()
+{
+    offres O(ui->id_of->text().toInt(),ui->nom_of->text(),ui->prix_of->text().toInt(),ui->dat_deb_of->date(),ui->dat_fin_of->date());
+       int id_of= ui->id_of->text().toInt();
+      int prix_of= ui->prix_of->text().toInt();
+      QString nom_of= ui->nom_of->text();
+      bool test=O.ajouter();
+       N.notification_ajoutOffres();
+         if(id_of==0||prix_of==0||nom_of=="")
+         {
+            QMessageBox::critical(nullptr, QObject::tr("vide"),
+                                             QObject::tr("veuillez saisir tous les champs correctement!\n"), QMessageBox::Cancel);
+
+         }
+
+           else if(test==true){
+            QMessageBox::information(nullptr, QObject::tr("database is open"),
+                            QObject::tr("offres ajoutée:\n"
+                 "click ok to exit"),QMessageBox::Ok);
+            ui->tab_of->setModel(O.afficher());
+
+         }
+         else{QMessageBox::information(nullptr, QObject::tr("database is open"),
+                                       QObject::tr("offres existe deja:\n"
+                            "click ok to exit"),QMessageBox::Ok);}
+
+            O.ajouter();
+}
+
+void MainWindow::on_pb_retour_2_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+}
+
+void MainWindow::on_pb_supprimer_2_clicked()
+{
+   offres O1;
+        O1.setid_of(ui->off_supp->text().toInt());
+        int id_of= ui->off_supp->text().toInt();
+
+        bool test1=O1.supprimer(O1.getid_of());
+
+N.notification_supprimerOffres();
+
+       if(id_of==0)
+        {
+           QMessageBox::critical(nullptr, QObject::tr("vide"),
+                                            QObject::tr("veuillez saisir tous les champs correctement!\n"), QMessageBox::Cancel);
+
+        }
+
+
+
+        else if(test1==true)
+           {QMessageBox::information(nullptr,QObject::tr("datavase is open"),
+                                     QObject::tr("offres supprimée:\n"
+             "click ok to exit"),QMessageBox::Ok);
+         ui->tab_of->setModel(O.afficher());
+
+        }
+           else
+        {QMessageBox::critical(nullptr,QObject::tr("database is open"),
+                                  QObject::tr("offres non supprimée:\n"
+               "click ok to exit"),QMessageBox::Ok);}
+       O.supprimer(O.getid_of());
+}
+
+void MainWindow::on_pb_modifier_2_clicked()
+{
+
+   offres O2;
+     O2.setid_of(ui->id_modi1->text().toInt());
+        O2.setnom_of(ui->nom_modi1->text());
+         O2.setprix_of(ui->prix_modi1->text().toInt());
+       O2.setdat_deb_of(ui->date_deb2->date());
+
+ O2.modifier(O2.getid_of(),O2.getnom_of(),O2.getprix_of(),O2.getdat_deb_of(),O2.getdat_fin_of());
+ int id_of= ui->id_modi1->text().toInt();
+ int prix_of= ui->prix_modi1->text().toInt();
+ QString nom_of= ui->nom_modi1->text();
+N.notification_modifierOffres();
+        if(id_of ==0||nom_of==""||prix_of==0)
+             {
+                QMessageBox::critical(nullptr, QObject::tr("vide"),
+                                                 QObject::tr("veuillez saisir tous les champs correctement!\n"), QMessageBox::Cancel);
+
+             }
+
+        else {
+            QMessageBox::information(nullptr, QObject::tr("database is open"),
+                    QObject::tr("offres modifier:\n"
+         "click ok to exit"),QMessageBox::Ok);
+            ui->tab_of->setModel(O.afficher());
+
+
+        }
+}
+
+void MainWindow::on_rech_id_2_clicked()
+{
+    QString id_of = ui->id_rech_2->text();
+        ui->tab_of->setModel(O.afficher_id_of(id_of));
+}
+
+void MainWindow::on_rech_nom_clicked()
+{
+    QString nom_of = ui->nom_rech2->text();
+        ui->tab_of->setModel(O.afficher_nom_of(nom_of));
+}
+
+void MainWindow::on_rech_date_clicked()
+{
+    QString dat_deb_of = ui->dat_rech->text();
+        ui->tab_of->setModel(O.afficher_dat_deb_of(dat_deb_of));
+}
+
+void MainWindow::on_trie_id_clicked()
+{
+     ui->tab_of->setModel( O.trier_id_of());
+}
+
+void MainWindow::on_trie_nom_clicked()
+{
+    ui->tab_of->setModel( O.trier_nom_of());
+}
+
+void MainWindow::on_trie_prix_clicked()
+{
+    ui->tab_of->setModel( O.trier_prix_of());
+}
+
+void MainWindow::on_pb_reset_clicked()
+{
+    offres O;
+
+        ui->tab_of->setModel(O.reset());
+}
+
+void MainWindow::on_off_supp_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+        QSqlQuery   *query= new QSqlQuery();
+        query->prepare("SELECT * FROM offres WHERE ID_OF  LIKE'"+arg1+"%' or NOM_OF LIKE'"+arg1+"%' or PRIX_OF LIKE'"+arg1+"%' or DAT_DEB_OF LIKE'"+arg1+"%'or DAT_FIN_OF LIKE'"+arg1+"%' ");
+         query->exec();
+         if (query->next()) { }
+         else {
+             QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                             QObject::tr("NO MATCH FOUND !.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+             ui->off_supp->clear();}
+}
+
+void MainWindow::on_id_modi1_textChanged(const QString &arg1)
+{
+    QSqlQueryModel *model= new QSqlQueryModel();
+        QSqlQuery   *query= new QSqlQuery();
+        query->prepare("SELECT * FROM offres WHERE ID_OF  LIKE'"+arg1+"%' or NOM_OF LIKE'"+arg1+"%' or PRIX_OF LIKE'"+arg1+"%' or DAT_DEB_OF LIKE'"+arg1+"%'or DAT_FIN_OF LIKE'"+arg1+"%' ");
+         query->exec();
+         if (query->next()) { }
+         else {
+             QMessageBox::critical(nullptr, QObject::tr("SEARCH"),
+                             QObject::tr("NO MATCH FOUND !.\n"
+                                         "Click Cancel to exit."), QMessageBox::Cancel);
+             ui->id_modi1->clear();}
+}
+
+void MainWindow::on_pb_retour2_2_clicked()
+{
+     ui->stackedWidget->setCurrentIndex(0);
 }

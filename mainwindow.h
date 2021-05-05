@@ -6,10 +6,41 @@
 #include"promotion.h"
 #include"notification.h"
 #include "arduino.h"
+#include <QMainWindow>
+#include <QMessageBox>
+#include <QRegularExpression>
+#include <QTableWidgetItem>
+#include <QItemSelectionModel>
+#include <QDebug>
+#include <QSqlTableModel>
+#include <QDialog>
+#include <QPrinter>
+#include <QPrintDialog>
+#include <qtextbrowser.h>
+
+#include <QPropertyAnimation>
+#include"offres.h"
+#include <QInputDialog>
+
+#include <QTranslator>
+
+
+#include "arduino.h"
+
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+//camera
+
+class QCamera ;
+class QCameraViewfinder;
+class QCameraImageCapture;
+class QVBoxLayout;
+class QMenu;
+class QAction;
+
 
 class MainWindow : public QMainWindow
 {
@@ -87,11 +118,68 @@ private slots:
 
     void on_pushButton_8_clicked();
 
+    void on_pb_comptage_clicked();
+
+
+
+   void on_chat_clicked();
+
+   void on_Camera_clicked();
+
+
+
+
+   void on_pb_offres_clicked();
+
+   void on_pb_ajouter_2_clicked();
+
+   void on_pb_retour_2_clicked();
+
+   void on_pb_supprimer_2_clicked();
+
+   void on_pb_modifier_2_clicked();
+
+   void on_rech_id_2_clicked();
+
+   void on_rech_nom_clicked();
+
+   void on_rech_date_clicked();
+
+   void on_trie_id_clicked();
+
+   void on_trie_nom_clicked();
+
+   void on_trie_prix_clicked();
+
+   void on_pb_reset_clicked();
+
+   void on_off_supp_textChanged(const QString &arg1);
+
+   void on_id_modi1_textChanged(const QString &arg1);
+
+   void on_pb_retour2_2_clicked();
+
 private:
     Ui::MainWindow *ui;
     reclamation R;
     promotion P;
     Notification N;
     arduino A;
+    //camera
+    QCamera *mCamera;
+    QCameraViewfinder *mCameraViewfinder;
+    QCameraImageCapture *mCameraImageCapture;
+    QVBoxLayout *mLayout;
+    QMenu *mOptionMenu;
+    QAction *mAllumerAction;
+    QAction *mEteindreAction;
+    QAction *mCapturerAction;
+    offres O;
+
+
+
+
+
+
 };
 #endif // MAINWINDOW_H

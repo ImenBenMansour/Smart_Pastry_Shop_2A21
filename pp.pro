@@ -1,5 +1,8 @@
 QT       += core gui sql serialport
+QT       += network
+QT       += multimedia multimediawidgets
 QT+= core gui printsupport
+
 
 
 CONFIG += console
@@ -17,6 +20,7 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     notification.cpp \
+    offres.cpp \
     promotion.cpp \
     reclamation.cpp
 
@@ -25,6 +29,7 @@ HEADERS += \
     connexion.h \
     mainwindow.h \
     notification.h \
+    offres.h \
     promotion.h \
     reclamation.h
 
@@ -38,3 +43,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+QMAKE_CXXFLAGS += -std=gnu++11
+//camera
+QMAKE_CXXFLAGS += -std=gnu++14
